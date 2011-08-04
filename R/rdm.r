@@ -43,8 +43,14 @@ dminfo <- function(ds) {
     names(infolist[[name]]$dimensions) <- lapply(infolist[[name]]$dimensions,
       FUN=function(dim) dim$id
     )
+    for (dimid in names(infolist[[name]]$dimensions)) {
+      names(infolist[[name]]$dimensions[[dimid]]$values) <- lapply(
+        infolist[[name]]$dimensions[[dimid]]$values,
+        FUN=function(dimvalue) dimvalue$id
+      )
+    }
   }
-  infolist
+  return(infolist)
 }
 
 #' Fetch dimensions of a DataMarket dataset.
