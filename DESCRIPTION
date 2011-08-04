@@ -19,3 +19,4 @@ Depends:
 Collate:
     'package.r'
     'rdm.r'
+    'util.r'
