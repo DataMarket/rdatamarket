@@ -1,0 +1,42 @@
+\name{dmdims}
+\alias{dmdims}
+\title{Fetch dimensions of a DataMarket dataset.}
+\usage{
+  dmdims(ds)
+}
+\arguments{
+  \item{ds}{a dataset ID, DS string, URL query-string, or
+  whole URL. The DS string to send is extracted from the
+  URL as needed, and short URLs at data.is, bit.ly, is.gd,
+  t.co and url.is are expanded. If the DS string contains
+  dimension filter specifications (the stuff after the |
+  character, so it's not just a dataset ID), these are
+  preserved in the request to the API, but for normal
+  DataMarket datasets they do not affect the response.}
+}
+\value{
+  named list of dataset dimension information. Each name is
+  a dataset ID and each element is a named list of
+  dimensions of that dataset. Each dimension is named for
+  its dimension ID in that list, and is itself a named list
+  of the four properties \code{id, title, type, values}.
+  The first three of these properties are character
+  strings, while \code{values} is a named list of dimension
+  values. Each of these is a list of two properties
+  \code{id, title}, and the \code{id} is also the name of
+  the dimension value
+}
+\description{
+  This is just shorthand for \code{lapply(dminfo(ds),
+  FUN=function(info) info$dimensions)}
+}
+\examples{
+dmdims('17tm')
+dmdims('17tm|kqc=a')
+dmdims('ds=17tm')
+dmdims('ds=17tm|kqc=a')
+dmdims('foo=bar&ds=17tm&baz=xyzzy')
+dmdims('http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy')
+dmdims('http://datamarket.com/data/set/17tm/#ds=17tm')
+}
+

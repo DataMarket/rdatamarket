@@ -1,4 +1,7 @@
-import(zoo)
+export(dmdims)
+export(dminfo)
+export(dmlist)
+export(dmseries)
 import(RCurl)
 import(RJSONIO)
-
+import(zoo)

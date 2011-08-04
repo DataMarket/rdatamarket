@@ -61,13 +61,18 @@ dminfo <- function(ds) {
 #' @param ds a dataset ID, DS string, URL query-string, or whole URL. The DS
 #'           string to send is extracted from the URL as needed, and short URLs
 #'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
+#'           If the DS string contains dimension filter specifications (the
+#'           stuff after the | character, so it's not just a dataset ID), these
+#'           are preserved in the request to the API, but for normal DataMarket
+#'           datasets they do not affect the response.
 #' @return named list of dataset dimension information. Each name is a dataset
 #'         ID and each element is a named list of dimensions of that dataset.
 #'         Each dimension is named for its dimension ID in that list, and is
 #'         itself a named list of the four properties \code{id, title, type,
 #'         values}. The first three of these properties are character strings,
-#'         while \code{values} is a list of dimension values. Each of these is
-#'         a list of two properties \code{id, title}.
+#'         while \code{values} is a named list of dimension values. Each of
+#'         these is a list of two properties \code{id, title}, and the \code{id}
+#'         is also the name of the dimension value
 #' @export
 #' @examples
 #' dmdims('17tm')
@@ -76,12 +81,30 @@ dminfo <- function(ds) {
 #' dmdims('ds=17tm|kqc=a')
 #' dmdims('foo=bar&ds=17tm&baz=xyzzy')
 #' dmdims('http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy')
+#' dmdims('http://datamarket.com/data/set/17tm/#ds=17tm')
 dmdims <- function(ds) {
   infolist <- dminfo(ds)
   lapply(infolist, FUN=function(info) info$dimensions)
 }
 
+#' Fetch timeseries from a DataMarket dataset.
+#'
+#' This performs a \code{series} API request at DataMarket.com, fetching the
+#' requested data and wrapping it in a \code{zoo} object.
+#'
+#' @param ds a dataset ID, DS string, URL query-string, or whole URL. The DS
+#'           string to send is extracted from the URL as needed, and short URLs
+#'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
+#' @return a zoo object representing the fetched timeseries.
 #' @export
+#' @examples
+#' dmseries(17tm')
+#' dmseries(17tm|kqc=a')
+#' dmseries('ds=17tm')
+#' dmseries('ds=17tm|kqc=a')
+#' dmseries('foo=bar&ds=17tm&baz=xyzzy')
+#' dmseries('http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy')
+#' dmseries('http://datamarket.com/data/set/17tm/#ds=17tm')
 dmseries <- function(ds, .params=list()) {
   ctx <- interpret_ds(ds)
   content <- getForm(
@@ -108,7 +131,24 @@ dmseries <- function(ds, .params=list()) {
   zoo(csv, order.by=zindex)
 }
 
+#' Fetch data in long form as a data.frame from a DataMarket dataset.
+#'
+#' This performs a \code{list} API request at DataMarket.com, fetching the
+#' requested data and wrapping it in a \code{zoo} object.
+#'
+#' @param ds a dataset ID, DS string, URL query-string, or whole URL. The DS
+#'           string to send is extracted from the URL as needed, and short URLs
+#'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
+#' @return a zoo object representing the fetched timeseries.
 #' @export
+#' @examples
+#' dmlist(17tm')
+#' dmlist(17tm|kqc=a')
+#' dmlist('ds=17tm')
+#' dmlist('ds=17tm|kqc=a')
+#' dmlist('foo=bar&ds=17tm&baz=xyzzy')
+#' dmlist('http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy')
+#' dmlist('http://datamarket.com/data/set/17tm/#ds=17tm')
 dmlist <- function(ds, .params=list()) {
   ctx <- interpret_ds(ds)
   content <- getForm(
