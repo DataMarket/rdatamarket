@@ -2,7 +2,7 @@ library(zoo)
 library(RCurl)
 library(RJSONIO)
 
-api_base <- 'http://localhost'
+api_base <- 'http://datamarket.com'
 path_info <- '/api/v1/info.json'
 path_series <- '/api/v1/series.csv'
 path_list <- '/api/v1/list.csv'

@@ -29,10 +29,6 @@ interpret_ds <- function(ds) {
   } else {
     qs <- list(ds=ds)
   }
-  # FIXME: hardcoding use of stage while testing
-  if (base == 'http://datamarket.com') {
-    base = 'http://stage.datamarket.com'
-  }
   list(base=base, qs=qs)
 }
 
