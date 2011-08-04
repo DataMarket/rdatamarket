@@ -1,0 +1,12 @@
+Package: rdm
+Title: Convenience functions for fetching datasets from DataMarket.com
+Description: Fetches data from DataMarket.com, either as timeseries in zoo form
+    (dmseries) or as long-form data frames (dmlist). Metadata including
+    dimension structure is fetched with dminfo, or just the dimensions with dmdims.
+URL: http://datamarket.com/api/lib/rdm
+Version: 0.2
+Maintainer: Gunnlaugur Thor Briem <gthb@datamarket.com>
+Author: Gunnlaugur Thor Briem <gthb@datamarket.com>
+Depends: R (>= 2.10.0), zoo
+Imports: RCurl, RJSONIO
+License: MIT
