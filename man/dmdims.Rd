@@ -2,7 +2,7 @@
 \alias{dmdims}
 \title{Fetch dimensions of a DataMarket dataset.}
 \usage{
-  dmdims(ds)
+  dmdims(ds, .params = list())
 }
 \arguments{
   \item{ds}{a dataset ID, DS string, URL query-string, or
@@ -13,6 +13,9 @@
   character, so it's not just a dataset ID), these are
   preserved in the request to the API, but for normal
   DataMarket datasets they do not affect the response.}
+
+  \item{.params}{extra GET parameters to pass along in the
+  API request.}
 }
 \value{
   named list of dataset dimension information. Each name is
@@ -27,16 +30,16 @@
   the dimension value
 }
 \description{
-  This is just shorthand for \code{lapply(dminfo(ds),
-  FUN=function(info) info$dimensions)}
+  This is just shorthand for \code{lapply(dminfo(ds,
+  .params=.params), FUN=function(info) info$dimensions)}
 }
 \examples{
-dmdims('17tm')
-dmdims('17tm|kqc=a')
-dmdims('ds=17tm')
-dmdims('ds=17tm|kqc=a')
-dmdims('foo=bar&ds=17tm&baz=xyzzy')
-dmdims('http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy')
-dmdims('http://datamarket.com/data/set/17tm/#ds=17tm')
+dmdims("17tm")
+dmdims("17tm|kqc=a")
+dmdims("ds=17tm")
+dmdims("ds=17tm|kqc=a")
+dmdims("foo=bar&ds=17tm&baz=xyzzy")
+dmdims("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
+dmdims("http://datamarket.com/data/set/17tm/#ds=17tm")
 }
 
