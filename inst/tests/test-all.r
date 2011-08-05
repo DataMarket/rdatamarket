@@ -65,6 +65,29 @@ test_that("Timeseries from dataset 17tm works", {
   expect_identical(times[2], as.Date('1966-07-01'))
 })
 
+test_that("Timeseries with parameter dimension filtering works", {
+  series <- dmseries('17tm', Country='Algeria')
+  expect_is(series, 'zoo')
+  expect_equal(as.numeric(series[1]), c(26.481))
+  expect_equal(as.numeric(series[2]), c(33.872))
+  times <- index(series)
+  expect_identical(times[1], as.Date('1965-07-01'))
+  expect_identical(times[2], as.Date('1966-07-01'))
+
+  # or, in short:
+  series_from_param <- dmseries('17tm', Country='Algeria')
+  series_from_dsstring <- dmseries('17tm|kqc=a')
+  expect_identical(series_from_param, series_from_dsstring)
+
+})
+
+test_that("Timeseries with multi-valued parameter dimension filtering works", {
+  series_from_param <- dmseries('17tm', Country=c('Algeria', 'Angola',
+    'Argentina'))
+  series_from_dsstring <- dmseries('17tm|kqc=a.17.d')
+  expect_identical(series_from_param, series_from_dsstring)
+})
+
 context("DataMarket long-form data ('list')")
 
 test_that("Long-form data from dataset 17tm works", {
@@ -78,5 +101,33 @@ test_that("Long-form data from dataset 17tm works", {
   ))
   expect_identical(lis$Year, c(replicate(3, 1965:2010)))
   expect_equal(lis$Value[1:4], c(26.481, 33.872, 39.076, 42.904))
+})
+
+test_that("Long-form data with parameter dimension filtering works", {
+  list_from_param <- dmlist('17tm', Country='Algeria')
+  list_from_dsstring <- dmlist('17tm|kqc=a')
+  expect_identical(list_from_param, list_from_dsstring)
+})
+
+test_that("Long-form with multi-valued parameter dimension filtering works", {
+  list_from_param <- dmlist('17tm', Country=c('Algeria', 'Angola', 'Argentina'))
+  list_from_dsstring <- dmlist('17tm|kqc=a.17.d')
+  expect_identical(list_from_param, list_from_dsstring)
+})
+
+context("Util functions")
+
+test_that("dimfilter forms DS strings from named args correctly", {
+  mockinfos <- list(`17tm`=list(dimensions=list(kqc=list(
+    id='kqc', title='Country', values=list(
+      a=list(id='a', title='Algeria'),
+      `17`=list(id='17', title='Angola'),
+      d=list(id='d', title='Argentina')
+    )
+  ))))
+  result <- dimfilter('17tm', mockinfos, Country='Algeria')
+  expect_equal(result, '17tm|kqc=a')
+  result <- dimfilter('17tm', mockinfos, Country=c('Angola', 'Argentina'))
+  expect_equal(result, '17tm|kqc=17.d')
 })
 

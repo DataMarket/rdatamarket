@@ -103,6 +103,11 @@ dmdims <- function(ds, .params=list()) {
 #'           string to send is extracted from the URL as needed, and short URLs
 #'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
 #' @param .params extra GET parameters to pass along in the API request.
+#' @param ... named parameters whose names are dimension titles or IDs, and
+#'            whose values are titles or IDs of values of those dimensions.
+#'            E.g. if dataset \code{17tm} has a dimension named Country, then
+#'            \code{dmseries("17tm", Country='Algeria')} filters on that
+#'            dimension.
 #' @return a zoo object representing the fetched timeseries.
 #' @export
 #' @examples
@@ -113,8 +118,14 @@ dmdims <- function(ds, .params=list()) {
 #' dmseries("foo=bar&ds=17tm&baz=xyzzy")
 #' dmseries("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmseries("http://datamarket.com/data/set/17tm/#ds=17tm")
-dmseries <- function(ds, .params=list()) {
+#' dmseries("17tm", Country='Algeria')
+#' dmseries("17tm", Country=c('Algeria', 'Angola'))
+dmseries <- function(ds, .params=list(), ...) {
   ctx <- interpret_ds(ds)
+  if (!(identical(c(...), c()))) {
+    infos = dminfo(ds)
+    ctx$qs$ds = dimfilter(ctx$qs$ds, infos, ...)
+  }
   content <- getForm(
     paste(ctx$base, path_series, sep=''),
     .params=c(ctx$qs, use_mid_dates=1, callback='', .params)
@@ -148,6 +159,11 @@ dmseries <- function(ds, .params=list()) {
 #'           string to send is extracted from the URL as needed, and short URLs
 #'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
 #' @param .params extra GET parameters to pass along in the API request.
+#' @param ... named parameters whose names are dimension titles or IDs, and
+#'            whose values are titles or IDs of values of those dimensions.
+#'            E.g. if dataset \code{17tm} has a dimension named Country, then
+#'            \code{dmlist("17tm", Country='Algeria')} filters on that
+#'            dimension.
 #' @return a zoo object representing the fetched timeseries.
 #' @export
 #' @examples
@@ -158,8 +174,14 @@ dmseries <- function(ds, .params=list()) {
 #' dmlist("foo=bar&ds=17tm&baz=xyzzy")
 #' dmlist("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmlist("http://datamarket.com/data/set/17tm/#ds=17tm")
-dmlist <- function(ds, .params=list()) {
+#' dmlist("17tm", Country='Algeria')
+#' dmlist("17tm", Country=c('Algeria', 'Angola'))
+dmlist <- function(ds, .params=list(), ...) {
   ctx <- interpret_ds(ds)
+  if (!(identical(c(...), c()))) {
+    infos = dminfo(ds)
+    ctx$qs$ds = dimfilter(ctx$qs$ds, infos, ...)
+  }
   content <- getForm(
     paste(ctx$base, path_list, sep=''),
     .params=c(ctx$qs, use_mid_dates=1, callback='', .params)

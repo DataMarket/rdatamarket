@@ -51,6 +51,57 @@ interpret_ds <- function(ds) {
   list(base=base, qs=qs)
 }
 
+dimfilter <- function(ds, infos, ...) {
+  args <- list(...)
+  newds <- c()
+  for (dsid in strsplit(ds, '\\/')[[1]]) {
+    dimspec <- c()
+    if (dsid %in% names(infos)) {
+      for (name in names(args)) {
+        matchdim <- NULL
+        for (dim in infos[[dsid]]$dimensions) {
+          if (dim$title == name) {
+            matchdim <- dim
+            break
+          }
+        }
+        if (is.null(matchdim) && name %in% names(infos[[dsid]]$dimensions)) {
+          matchdim <- infos[[dsid]]$dimensions[[name]]
+        }
+        if (!(is.null(matchdim))) {
+          valueids <- c()
+          for (value in args[[name]]) {
+            valueid <- NULL
+            for (prospect in dim$values) {
+              if (prospect$title == value) {
+                valueid <- prospect$id
+                break
+              }
+            }
+            if (is.null(matchdim) && value %in% names(dim$values)) {
+              valueid <- value
+            }
+            if (!(is.null(valueid))) {
+              valueids <- c(valueids, valueid)
+            }
+          }
+          dimspec <- c(dimspec, paste(
+            matchdim$id, '=', paste(valueids, collapse='.'),
+            sep=''
+            ))
+        }
+      }
+    }
+    newds <- c(newds,
+      ifelse(
+        identical(dimspec, c()),
+        dsid,
+        paste(dsid, '|', paste(dimspec, collapse=':'), sep='')
+      ))
+  }
+  return(paste(newds, collapse='/'))
+}
+
 urlsplit <- function(url) {
   uri_and_query_and_anchor <- strsplit(url, '\\#')[[1]]
   uri_and_query <- strsplit(uri_and_query_and_anchor[[1]], '\\?')[[1]]
