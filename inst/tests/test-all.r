@@ -19,6 +19,31 @@ test_that("Dataset 17tm looks as expected", {
   expect_equal(dim1$values[[3]]$title, 'Argentina')
 })
 
+test_that("Info is kept around if passed to interpret_ds", {
+  mock = list(id='17tm', ds='17tm', meta='dummy', dimensions='dummy',
+    status='dummy', title='dummy')
+  expect_identical(interpret_ds(mock), list(
+    base='http://datamarket.com',
+    qs=list(ds='17tm'),
+    infos=list(`17tm`=mock)
+    ))
+
+  mock2 = list(id='foo', ds='foo', meta='dummy', dimensions='dummy',
+    status='dummy', title='dummy')
+  expect_identical(interpret_ds(list(`17tm`=mock, foo=mock2)), list(
+    base='http://datamarket.com',
+    qs=list(ds='17tm/foo'),
+    infos=list(`17tm`=mock, foo=mock2)
+    ))
+
+  # and also if unnamed
+  expect_identical(interpret_ds(list(mock, mock2)), list(
+    base='http://datamarket.com',
+    qs=list(ds='17tm/foo'),
+    infos=list(`17tm`=mock, foo=mock2)
+    ))
+})
+
 context("DataMarket timeseries")
 
 test_that("Timeseries from dataset 17tm works", {

@@ -1,6 +1,25 @@
 
 interpret_ds <- function(ds) {
   base <- api_base
+  if (class(ds) == 'list' && setequal(
+      names(ds),
+      c('status', 'dimensions', 'meta', 'title', 'ds', 'id')
+      )) {
+    infos = list(ds)
+    names(infos) = c(ds$id)
+    return(list(base=base, qs=list(ds=ds$id), infos=infos))
+  } else if (class(ds) == 'list' && length(ds) >= 1 && setequal(
+      names(ds[[1]]),
+      c('status', 'dimensions', 'meta', 'title', 'ds', 'id')
+      )) {
+    infos = ds
+    names(infos) = sapply(ds, FUN=function(s) s$id)
+    return(list(
+      base=base,
+      qs=list(ds=paste(sapply(ds, FUN=function(s) s$id), collapse='/')),
+      infos=infos
+      ))
+  }
   if (grepl('^https?:', ds)) {
     spliturl <- urlsplit(ds)
     base <- spliturl$base
