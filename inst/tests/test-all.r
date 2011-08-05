@@ -44,6 +44,14 @@ test_that("Info is kept around if passed to interpret_ds", {
     ))
 })
 
+test_that("Info is reused if given to dminfo", {
+  mock = list(id='17tm', ds='17tm', meta='dummy', dimensions='dummy',
+    status='dummy', title='dummy')
+  expect_identical(dminfo(mock), list(`17tm`=mock))
+  mock = list(`17tm`=mock)
+  expect_identical(dminfo(mock), mock)
+})
+
 context("DataMarket timeseries")
 
 test_that("Timeseries from dataset 17tm works", {

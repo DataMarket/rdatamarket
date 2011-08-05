@@ -35,6 +35,9 @@ short_url_services <- c(
 #' dminfo("http://datamarket.com/data/set/17tm/#ds=17tm")
 dminfo <- function(ds, .params=list()) {
   ctx <- interpret_ds(ds)
+  if ('infos' %in% names(ctx)) {
+    return(ctx$infos)
+  }
   infojson <- getForm(
     paste(ctx$base, path_info, sep=''),
     .params=c(ctx$qs, callback='', .params=.params)
