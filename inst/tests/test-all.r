@@ -20,7 +20,7 @@ test_that("Dataset 17tm looks as expected", {
 })
 
 test_that("Info is kept around if passed to interpret_ds", {
-  mock = list(id='17tm', ds='17tm', meta='dummy', dimensions='dummy',
+  mock <- list(id='17tm', ds='17tm', meta='dummy', dimensions='dummy',
     status='dummy', title='dummy')
   expect_identical(interpret_ds(mock), list(
     base='http://datamarket.com',
@@ -28,7 +28,7 @@ test_that("Info is kept around if passed to interpret_ds", {
     infos=list(`17tm`=mock)
     ))
 
-  mock2 = list(id='foo', ds='foo', meta='dummy', dimensions='dummy',
+  mock2 <- list(id='foo', ds='foo', meta='dummy', dimensions='dummy',
     status='dummy', title='dummy')
   expect_identical(interpret_ds(list(`17tm`=mock, foo=mock2)), list(
     base='http://datamarket.com',
@@ -45,10 +45,10 @@ test_that("Info is kept around if passed to interpret_ds", {
 })
 
 test_that("Info is reused if given to dminfo", {
-  mock = list(id='17tm', ds='17tm', meta='dummy', dimensions='dummy',
+  mock <- list(id='17tm', ds='17tm', meta='dummy', dimensions='dummy',
     status='dummy', title='dummy')
   expect_identical(dminfo(mock), list(`17tm`=mock))
-  mock = list(`17tm`=mock)
+  mock <- list(`17tm`=mock)
   expect_identical(dminfo(mock), mock)
 })
 
@@ -60,7 +60,7 @@ test_that("Timeseries from dataset 17tm works", {
   expect_identical(names(series), c('Algeria', 'Angola', 'Argentina'))
   expect_equal(as.numeric(series[1]), c(26.481, 0.655, 13.7647586207))
   expect_equal(as.numeric(series[2]), c(33.872, 0.631, 14.6439655172))
-  times = index(series)
+  times <- index(series)
   expect_identical(times[1], as.Date('1965-07-01'))
   expect_identical(times[2], as.Date('1966-07-01'))
 })

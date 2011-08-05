@@ -123,8 +123,8 @@ dmdims <- function(ds, .params=list()) {
 dmseries <- function(ds, .params=list(), ...) {
   ctx <- interpret_ds(ds)
   if (!(identical(c(...), c()))) {
-    infos = dminfo(ds)
-    ctx$qs$ds = dimfilter(ctx$qs$ds, infos, ...)
+    infos <- dminfo(ds)
+    ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
   content <- getForm(
     paste(ctx$base, path_series, sep=''),
@@ -141,7 +141,7 @@ dmseries <- function(ds, .params=list(), ...) {
   }
   for (name in c("Date", "Year.and.week", "Year.and.month", "Year.and.quarter", "Year")) {
     if (name %in% names(csv)) {
-      timecolname = name
+      timecolname <- name
       break
     }
   }
@@ -179,8 +179,8 @@ dmseries <- function(ds, .params=list(), ...) {
 dmlist <- function(ds, .params=list(), ...) {
   ctx <- interpret_ds(ds)
   if (!(identical(c(...), c()))) {
-    infos = dminfo(ds)
-    ctx$qs$ds = dimfilter(ctx$qs$ds, infos, ...)
+    infos <- dminfo(ds)
+    ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
   content <- getForm(
     paste(ctx$base, path_list, sep=''),

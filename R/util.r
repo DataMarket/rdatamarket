@@ -5,15 +5,15 @@ interpret_ds <- function(ds) {
       names(ds),
       c('status', 'dimensions', 'meta', 'title', 'ds', 'id')
       )) {
-    infos = list(ds)
-    names(infos) = c(ds$id)
+    infos <- list(ds)
+    names(infos) <- c(ds$id)
     return(list(base=base, qs=list(ds=ds$id), infos=infos))
   } else if (class(ds) == 'list' && length(ds) >= 1 && setequal(
       names(ds[[1]]),
       c('status', 'dimensions', 'meta', 'title', 'ds', 'id')
       )) {
-    infos = ds
-    names(infos) = sapply(ds, FUN=function(s) s$id)
+    infos <- ds
+    names(infos) <- sapply(ds, FUN=function(s) s$id)
     return(list(
       base=base,
       qs=list(ds=paste(sapply(ds, FUN=function(s) s$id), collapse='/')),
@@ -27,12 +27,12 @@ interpret_ds <- function(ds) {
     anchor <- parse_qs(spliturl$anchor)
     qs <- parse_qs(spliturl$qs)
     if ('ds' %in% names(anchor)) {
-      qs = anchor
+      qs <- anchor
     } else if ('ds' %in% names(qs)) {
     } else if (base %in% short_url_services) {
       h=basicTextGatherer()
       getURL(ds, headerFunction=h$update)
-      conn = textConnection(paste(h$value(NULL)[-1], collapse=""))
+      conn <- textConnection(paste(h$value(NULL)[-1], collapse=""))
       headers=as.list(read.dcf(conn)[1,])
       close(conn)
       if ('Location' %in% names(headers)) {
@@ -127,13 +127,13 @@ parse_qs <- function(qs) {
   if (class(qs) == 'list') {
     return(qs)
   }
-  l = lapply(as.list(strsplit(qs, '&', fixed=TRUE)[[1]]), FUN=function(pair) {
+  l <- lapply(as.list(strsplit(qs, '&', fixed=TRUE)[[1]]), FUN=function(pair) {
     keyval <- as.list(strsplit(pair, '=', fixed=TRUE)[[1]])
     val <- ifelse(length(keyval) > 1, paste(keyval[-1], collapse='='), '')
     names(val) <- keyval[[1]]
     return(val)
   })
-  names(l) = sapply(l, names)
+  names(l) <- sapply(l, names)
   return(l)
 }
 
