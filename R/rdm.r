@@ -106,8 +106,9 @@ dmdims <- function(ds, .params=list()) {
 #' @param ... named parameters whose names are dimension titles or IDs, and
 #'            whose values are titles or IDs of values of those dimensions.
 #'            E.g. if dataset \code{17tm} has a dimension named Country, then
-#'            \code{dmseries("17tm", Country='Algeria')} filters on that
-#'            dimension.
+#'            \code{dmseries("17tm", Country="Algeria")} filters on that
+#'            dimension. If the dimension name includes spaces, it needs to be
+#'            quoted: \code{dmlist("12rb", "Country or Area"="Afghanistan")}
 #' @return a zoo object representing the fetched timeseries.
 #' @export
 #' @examples
@@ -118,8 +119,8 @@ dmdims <- function(ds, .params=list()) {
 #' dmseries("foo=bar&ds=17tm&baz=xyzzy")
 #' dmseries("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmseries("http://datamarket.com/data/set/17tm/#ds=17tm")
-#' dmseries("17tm", Country='Algeria')
-#' dmseries("17tm", Country=c('Algeria', 'Angola'))
+#' dmseries("17tm", Country="Algeria")
+#' dmseries("17tm", Country=c("Algeria", "Angola"))
 dmseries <- function(ds, .params=list(), ...) {
   ctx <- interpret_ds(ds)
   if (!(identical(c(...), c()))) {
@@ -162,8 +163,9 @@ dmseries <- function(ds, .params=list(), ...) {
 #' @param ... named parameters whose names are dimension titles or IDs, and
 #'            whose values are titles or IDs of values of those dimensions.
 #'            E.g. if dataset \code{17tm} has a dimension named Country, then
-#'            \code{dmlist("17tm", Country='Algeria')} filters on that
-#'            dimension.
+#'            \code{dmlist("17tm", Country="Algeria")} filters on that
+#'            dimension. If the dimension name includes spaces, it needs to be
+#'            quoted: \code{dmlist("12rb", "Country or Area"="Afghanistan")}
 #' @return a zoo object representing the fetched timeseries.
 #' @export
 #' @examples
@@ -174,8 +176,9 @@ dmseries <- function(ds, .params=list(), ...) {
 #' dmlist("foo=bar&ds=17tm&baz=xyzzy")
 #' dmlist("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmlist("http://datamarket.com/data/set/17tm/#ds=17tm")
-#' dmlist("17tm", Country='Algeria')
-#' dmlist("17tm", Country=c('Algeria', 'Angola'))
+#' dmlist("17tm", Country="Algeria")
+#' dmlist("17tm", Country=c("Algeria", "Angola"))
+#' dmlist("12rb", "Country or Area"="Afghanistan")
 dmlist <- function(ds, .params=list(), ...) {
   ctx <- interpret_ds(ds)
   if (!(identical(c(...), c()))) {
