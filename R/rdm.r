@@ -2,16 +2,16 @@ library(zoo)
 library(RCurl)
 library(RJSONIO)
 
-api_base <- 'http://datamarket.com'
-path_info <- '/api/v1/info.json'
-path_series <- '/api/v1/series.csv'
-path_list <- '/api/v1/list.csv'
+api_base <- "http://datamarket.com"
+path_info <- "/api/v1/info.json"
+path_series <- "/api/v1/series.csv"
+path_list <- "/api/v1/list.csv"
 short_url_services <- c(
-  'http://data.is',
-  'http://bit.ly',
-  'http://is.gd',
-  'http://t.co',
-  'http://url.is'
+  "http://data.is",
+  "http://bit.ly",
+  "http://is.gd",
+  "http://t.co",
+  "http://url.is"
 )
 
 #' Fetch information about a DataMarket dataset.
@@ -35,12 +35,12 @@ short_url_services <- c(
 #' dminfo("http://datamarket.com/data/set/17tm/#ds=17tm")
 dminfo <- function(ds, .params=list()) {
   ctx <- interpret_ds(ds)
-  if ('infos' %in% names(ctx)) {
+  if ("infos" %in% names(ctx)) {
     return(ctx$infos)
   }
   infojson <- getForm(
-    paste(ctx$base, path_info, sep=''),
-    .params=c(ctx$qs, callback='', .params=.params)
+    paste(ctx$base, path_info, sep=""),
+    .params=c(ctx$qs, callback="", .params=.params)
     )
   infolist <- fromJSON(infojson)
   names(infolist) <- lapply(infolist, FUN=function(i) i$ds)
@@ -128,8 +128,8 @@ dmseries <- function(ds, .params=list(), ...) {
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
   content <- getForm(
-    paste(ctx$base, path_series, sep=''),
-    .params=c(ctx$qs, use_mid_dates=1, callback='', .params)
+    paste(ctx$base, path_series, sep=""),
+    .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
     )
   conn <- textConnection(content)
   csv <- read.csv(conn, header=TRUE)
@@ -186,8 +186,8 @@ dmlist <- function(ds, .params=list(), ...) {
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
   content <- getForm(
-    paste(ctx$base, path_list, sep=''),
-    .params=c(ctx$qs, use_mid_dates=1, callback='', .params)
+    paste(ctx$base, path_list, sep=""),
+    .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
     )
   conn <- textConnection(content)
   csv <- read.csv(conn, header=TRUE)
