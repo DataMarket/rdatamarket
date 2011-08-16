@@ -17,7 +17,9 @@
   titles or IDs, and whose values are titles or IDs of
   values of those dimensions. E.g. if dataset \code{17tm}
   has a dimension named Country, then \code{dmlist("17tm",
-  Country='Algeria')} filters on that dimension.}
+  Country="Algeria")} filters on that dimension. If the
+  dimension name includes spaces, it needs to be quoted:
+  \code{dmlist("12rb", "Country or Area"="Afghanistan")}}
 }
 \value{
   a zoo object representing the fetched timeseries.
@@ -35,7 +37,8 @@ dmlist("ds=17tm|kqc=a")
 dmlist("foo=bar&ds=17tm&baz=xyzzy")
 dmlist("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 dmlist("http://datamarket.com/data/set/17tm/#ds=17tm")
-dmlist("17tm", Country='Algeria')
-dmlist("17tm", Country=c('Algeria', 'Angola'))
+dmlist("17tm", Country="Algeria")
+dmlist("17tm", Country=c("Algeria", "Angola"))
+dmlist("12rb", "Country or Area"="Afghanistan")
 }
 
