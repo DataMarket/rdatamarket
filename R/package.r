@@ -1,20 +1,41 @@
 #' Data access API for DataMarket.com
 #'
-#' Fetches data from DataMarket.com, either as timeseries in
-#' zoo form (dmseries) or as long-form data frames (dmlist). Metadata
-#' including dimension structure is fetched with dminfo, or just the
-#' dimensions with dmdims.
+#' Intracts with DataMarket.com, to fetch data in timeseries (zoo) or long form
+#' as well as dataset metadata.
 #'
-#' DS parameters
+#' \section{DS parameters}{
 #'
-#' Functions that take a parameter named \code{ds} can accept a dataset ID or DS
-#' string (see http://datamarket.com/api/v1/) or a query string or URL
-#' containing a DS string, or a short URL (\code{data.is, bit.ly, is.gd, t.co,
-#' url.is} redirecting to such a URL.
+#' In functions that take a parameter named \code{ds}, that parameter can be:
+#' \itemize{
+#'   \item a dataset ID (\code{"17tm"})
+#'   \item a DS string (\code{"17tm|kqc=a"}) consisting of a dataset ID
+#'         along with some dimension filtering specifications; for more about
+#'         DS strings, see Datamarket API documentation at
+#'         \url{http://datamarket.com/api/v1/#about-ds}
+#'   \item a query string (\code{"foo=bar&ds=17tm|kqc=a&baz=xyzzy"})
+#'         containing such a string in a \code{ds} parameter
+#'   \item a URL (\code{"http://datamarket.com/data/set/17tm/#ds=17tm|kqc=a"})
+#'         containing such a query string after \code{?} or \code{#}
+#'   \item such a URL represented by a redirect (\code{"http://data.is/r6JEsC"})
+#'         in a short-URL service (\code{data.is, bit.ly, is.gd, t.co, url.is})
+#'   \item a dataset object, obtained by calling \code{\link{dminfo}}.
+#' }
 #'
-#' Generally, when browsing a dataset on datamarket.com, you should be able to
-#' copy the URL from your browser bar and paste into a call to \code{dmseries}
-#' or \code{dmlist} to get the same data into R.
+#' Thus when viewing any dataset on datamarket.com, you can copy the URL from
+#' your browser bar and paste into a call to \code{\link{dmseries}} or
+#' \code{\link{dmlist}} to load the same data into R, or a call to
+#' \code{\link{dminfo}} to get a dataset object with which to make data queries.
+#' }
+#'
+#' Dimension filtering
+#'
+#' The functions \code{\link{dmseries}} and \code{\link{dmlist}} can accept
+#' parameters named after the dimensions of the dataset, in order to filter the
+#' dataset on those dimensions. As an example:
+#'
+#' \code{oil <- dminfo('17tm')}
+#'
+#' \code{algeria <- dmlist(oil, Country='Algeria')}
 #'
 #' @import zoo RCurl RJSONIO
 #' @docType package
