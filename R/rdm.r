@@ -51,7 +51,7 @@ dminfo <- function(ds, .params=list()) {
     for (dimid in names(infolist[[name]]$dimensions)) {
       names(infolist[[name]]$dimensions[[dimid]]$values) <- lapply(
         infolist[[name]]$dimensions[[dimid]]$values,
-        FUN=function(dimvalue) as.list(dimvalue)$id
+        FUN=function(dimvalue) dimvalue[['id']]
       )
     }
   }

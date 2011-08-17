@@ -73,8 +73,8 @@ dimfilter <- function(ds, infos, ...) {
           for (value in args[[name]]) {
             valueid <- NULL
             for (prospect in dim$values) {
-              if (prospect$title == value) {
-                valueid <- prospect$id
+              if (prospect[['title']] == value) {
+                valueid <- prospect[['id']]
                 break
               }
             }
