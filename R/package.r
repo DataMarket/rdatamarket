@@ -1,9 +1,9 @@
 #' Data access API for DataMarket.com
 #'
-#' Intracts with DataMarket.com, to fetch data in timeseries (zoo) or long form
-#' as well as dataset metadata.
+#' Interacts with DataMarket.com, fetching data in timeseries (\code{zoo}) and
+#' long form (suitable for \code{reshape}), and metadata on datasets.
 #'
-#' \section{DS parameters}{
+#' @section DS parameters:
 #'
 #' In functions that take a parameter named \code{ds}, that parameter can be:
 #' \itemize{
@@ -25,20 +25,17 @@
 #' your browser bar and paste into a call to \code{\link{dmseries}} or
 #' \code{\link{dmlist}} to load the same data into R, or a call to
 #' \code{\link{dminfo}} to get a dataset object with which to make data queries.
-#' }
 #'
-#' Dimension filtering
+#' @section Dimension filtering:
 #'
 #' The functions \code{\link{dmseries}} and \code{\link{dmlist}} can accept
 #' parameters named after the dimensions of the dataset, in order to filter the
-#' dataset on those dimensions. As an example:
-#'
-#' \code{oil <- dminfo('17tm')}
-#'
-#' \code{algeria <- dmlist(oil, Country='Algeria')}
+#' dataset on those dimensions: \code{dmlist('17tm', Country='Algeria')}
 #'
 #' @import zoo RCurl RJSONIO
 #' @docType package
-#' @name rdm
-#' @aliases rdm package-rdm
+#' @name rdm-package
+#' @examples
+#' oil <- dminfo('17tm')
+#' algeria <- dmlist(oil, Country='Algeria')
 NULL
