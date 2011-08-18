@@ -127,24 +127,22 @@ dmseries <- function(ds, .params=list(), ...) {
     infos <- dminfo(ds)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
-  content <- getForm(
-    paste(ctx$base, path_series, sep=""),
-    .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
-    )
-  conn <- textConnection(content)
-  csv <- read.csv(conn, header=TRUE)
-  close(conn)
-  .check_csv_errors(csv)
+  csv <- get.datamarket.csv(ctx, path_series, .params)
   for (name in names(csv)) {
     if (all(is.na(csv[[name]]))) {
       csv[[name]] <- NULL
     }
   }
+  timecolname <- NULL
   for (name in c("Date", "Year.and.week", "Year.and.month", "Year.and.quarter", "Year")) {
     if (name %in% names(csv)) {
       timecolname <- name
       break
     }
+  }
+  if (is.null(timecolname)) {
+    stop(paste("No time column found in timeseries response. Columns are:",
+               names(csv)))
   }
   zindex <- as.Date(csv[[timecolname]])
   csv[[timecolname]] <- NULL
@@ -185,13 +183,5 @@ dmlist <- function(ds, .params=list(), ...) {
     infos <- dminfo(ds)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
-  content <- getForm(
-    paste(ctx$base, path_list, sep=""),
-    .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
-    )
-  conn <- textConnection(content)
-  csv <- read.csv(conn, header=TRUE)
-  close(conn)
-  .check_csv_errors(csv)
-  csv
+  get.datamarket.csv(ctx, path_list, .params)
 }

@@ -137,12 +137,20 @@ parse_qs <- function(qs) {
   return(l)
 }
 
-.check_csv_errors <- function(csv) {
+get.datamarket.csv <- function(ctx, path, .params) {
+  content <- getForm(
+    paste(ctx$base, path, sep=""),
+    .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
+    )
+  conn <- textConnection(content)
+  csv <- read.csv(conn, header=TRUE)
+  close(conn)
   if (names(csv)[[1]] == 'request.error') {
     stop(paste("Request error: ", csv[[1]]))
   }
   if (names(csv)[[1]] == 'server.error') {
     stop(paste("Server error:", csv[[1]]))
   }
+  return(csv)
 }
 
