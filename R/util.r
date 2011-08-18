@@ -139,10 +139,10 @@ parse_qs <- function(qs) {
 
 .check_csv_errors <- function(csv) {
   if (names(csv)[[1]] == 'request.error') {
-    stop("Request error: ", as.character(csv[[1]]))
+    stop(paste("Request error: ", csv[[1]]))
   }
   if (names(csv)[[1]] == 'server.error') {
-    stop("Server error: ", as.character(csv[[1]]))
+    stop(paste("Server error:", csv[[1]]))
   }
 }
 
