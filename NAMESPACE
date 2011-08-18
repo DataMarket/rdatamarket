@@ -1,5 +1,6 @@
 export(dmdims)
 export(dminfo)
+export(dminit)
 export(dmlist)
 export(dmseries)
 import(RCurl)

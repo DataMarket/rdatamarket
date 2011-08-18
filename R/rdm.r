@@ -14,6 +14,22 @@ short_url_services <- c(
   "http://url.is"
 )
 
+#' Initialize DataMarket client with an API key
+#'
+#' An API key is required to access locked and non-public data. Access
+#' to public datasets does not require an API key, for now at least.
+#'
+#' @param api.key a DataMarket API key, found in
+#'   \href{http://datamarket.com/accounts/profile/}{your account profile}
+#' @export
+#' @examples
+#' dminit("1234567890abcdef1234567890abcdef")
+dminit <- function(api.key) {
+  if (!is.null(api.key)) {
+    .RdmEnv$curlopts$httpheader[["X-DataMarket-API-Key"]] <- api.key
+  }
+}
+
 #' Fetch information about a DataMarket dataset.
 #'
 #' This function makes an \code{info} API call to fetch metadata (including
@@ -34,12 +50,17 @@ short_url_services <- c(
 #' dminfo("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dminfo("http://datamarket.com/data/set/17tm/#ds=17tm")
 dminfo <- function(ds, .params=list()) {
-  ctx <- interpret_ds(ds)
+  return(dodminfo(ds, .params))
+}
+
+dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
+  ctx <- interpret_ds(ds, .curl=.curl)
   if ("infos" %in% names(ctx)) {
     return(ctx$infos)
   }
   infojson <- getForm(
     paste(ctx$base, path_info, sep=""),
+    curl=.curl,
     .params=c(ctx$qs, callback="", .params=.params)
     )
   infolist <- fromJSON(infojson)
@@ -122,12 +143,13 @@ dmdims <- function(ds, .params=list()) {
 #' dmseries("17tm", Country="Algeria")
 #' dmseries("17tm", Country=c("Algeria", "Angola"))
 dmseries <- function(ds, .params=list(), ...) {
-  ctx <- interpret_ds(ds)
+  curl <- dmCurlHandle()
+  ctx <- interpret_ds(ds, .curl=curl)
   if (!(identical(c(...), c()))) {
-    infos <- dminfo(ds)
+    infos <- dodminfo(ds, .curl=curl)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
-  csv <- get.datamarket.csv(ctx, path_series, .params)
+  csv <- get.datamarket.csv(ctx, path_series, curl, .params)
   for (name in names(csv)) {
     if (all(is.na(csv[[name]]))) {
       csv[[name]] <- NULL
@@ -178,10 +200,15 @@ dmseries <- function(ds, .params=list(), ...) {
 #' dmlist("17tm", Country=c("Algeria", "Angola"))
 #' dmlist("12rb", "Country or Area"="Afghanistan")
 dmlist <- function(ds, .params=list(), ...) {
-  ctx <- interpret_ds(ds)
+  curl <- dmCurlHandle()
+  ctx <- interpret_ds(ds, .curl=curl)
   if (!(identical(c(...), c()))) {
     infos <- dminfo(ds)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
-  get.datamarket.csv(ctx, path_list, .params)
+  get.datamarket.csv(ctx, path_list, curl, .params)
+}
+
+dmCurlHandle <- function() {
+  getCurlHandle(.opts=.RdmEnv$curlopts)
 }

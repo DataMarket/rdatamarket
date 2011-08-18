@@ -39,3 +39,7 @@
 #' oil <- dminfo('17tm')
 #' algeria <- dmlist(oil, Country='Algeria')
 NULL
+
+.RdmEnv <- new.env()
+.RdmEnv$curlopts <- curlOptions()
+.RdmEnv$curlopts <- curlOptions()

@@ -1,5 +1,5 @@
 
-interpret_ds <- function(ds) {
+interpret_ds <- function(ds, .curl=dmCurlHandle()) {
   base <- api_base
   if (class(ds) == 'list' && setequal(
       names(ds),
@@ -137,9 +137,10 @@ parse_qs <- function(qs) {
   return(l)
 }
 
-get.datamarket.csv <- function(ctx, path, .params) {
+get.datamarket.csv <- function(ctx, path, curl, .params) {
   content <- getForm(
     paste(ctx$base, path, sep=""),
+    curl=curl,
     .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
     )
   conn <- textConnection(content)
