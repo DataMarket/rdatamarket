@@ -42,4 +42,4 @@ NULL
 
 .rdatamarketEnv <- new.env()
 .rdatamarketEnv$curlopts <- curlOptions()
-.rdatamarketEnv$curlopts <- curlOptions()
+.rdatamarketEnv$curlopts$httpheader <- NULL

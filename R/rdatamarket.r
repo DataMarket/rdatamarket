@@ -20,13 +20,18 @@ short_url_services <- c(
 #' to public datasets does not require an API key, for now at least.
 #'
 #' @param api.key a DataMarket API key, found in
-#'   \href{http://datamarket.com/accounts/profile/}{your account profile}
+#'   \href{http://datamarket.com/accounts/profile/}{your account profile},
+#'   or NULL to forget the previously entered API key.
 #' @export
 #' @examples
 #' dminit("1234567890abcdef1234567890abcdef")
+#' dminit(NULL)
 dminit <- function(api.key) {
-  if (!is.null(api.key)) {
-    .rdatamarketEnv$curlopts$httpheader[["X-DataMarket-API-Key"]] <- api.key
+  if (!missing(api.key)) {
+    .rdatamarketEnv$curlopts$httpheader$`X-DataMarket-API-Key` <- api.key
+  }
+  if (length(.rdatamarketEnv$curlopts$httpheader) == 0) {
+    .rdatamarketEnv$curlopts$httpheader <- NULL # else RCurl acts up
   }
 }
 

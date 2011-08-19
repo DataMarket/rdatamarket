@@ -7,7 +7,8 @@
 \arguments{
   \item{api.key}{a DataMarket API key, found in
   \href{http://datamarket.com/accounts/profile/}{your
-  account profile}}
+  account profile}, or NULL to forget the previously
+  entered API key.}
 }
 \description{
   An API key is required to access locked and non-public
@@ -16,5 +17,6 @@
 }
 \examples{
 dminit("1234567890abcdef1234567890abcdef")
+dminit(NULL)
 }
 
