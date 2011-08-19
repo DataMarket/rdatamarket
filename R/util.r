@@ -85,6 +85,10 @@ dimfilter <- function(ds, infos, ...) {
               valueids <- c(valueids, valueid)
             }
           }
+          if (identical(valueids, c())) {
+            stop(paste("No match found for '", name, "'='", args[name], "'",
+                       sep=""))
+          }
           dimspec <- c(dimspec, paste(
             matchdim$id, '=', paste(valueids, collapse='.'),
             sep=''
