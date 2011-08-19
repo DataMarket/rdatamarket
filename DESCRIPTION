@@ -1,4 +1,4 @@
-Package: rdm
+Package: rdatamarket
 Imports:
     RCurl,
     RJSONIO
@@ -12,11 +12,11 @@ Description: Fetches data from DataMarket.com, either as
     is fetched with dminfo, or just the dimensions with
     dmdims.
 Version: 0.5
-URL: http://datamarket.com/api/lib/rdm
+URL: http://datamarket.com/api/lib/rdatamarket
 Depends:
     R (>= 2.10.0),
     zoo
 Collate:
     'package.r'
-    'rdm.r'
+    'rdatamarket.r'
     'util.r'

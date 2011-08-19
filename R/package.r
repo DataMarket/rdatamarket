@@ -34,12 +34,12 @@
 #'
 #' @import zoo RCurl RJSONIO
 #' @docType package
-#' @name rdm-package
+#' @name rdatamarket-package
 #' @examples
 #' oil <- dminfo('17tm')
 #' algeria <- dmlist(oil, Country='Algeria')
 NULL
 
-.RdmEnv <- new.env()
-.RdmEnv$curlopts <- curlOptions()
-.RdmEnv$curlopts <- curlOptions()
+.rdatamarketEnv <- new.env()
+.rdatamarketEnv$curlopts <- curlOptions()
+.rdatamarketEnv$curlopts <- curlOptions()
