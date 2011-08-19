@@ -78,7 +78,7 @@ dimfilter <- function(ds, infos, ...) {
                 break
               }
             }
-            if (is.null(matchdim) && value %in% names(dim$values)) {
+            if (is.null(valueid) && value %in% names(dim$values)) {
               valueid <- value
             }
             if (!(is.null(valueid))) {
