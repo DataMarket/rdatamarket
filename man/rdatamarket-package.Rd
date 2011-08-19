@@ -1,6 +1,6 @@
 \docType{package}
-\name{rdm-package}
-\alias{rdm-package}
+\name{rdatamarket-package}
+\alias{rdatamarket-package}
 \title{Data access API for DataMarket.com}
 \description{
   Interacts with DataMarket.com, fetching data in

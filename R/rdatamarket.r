@@ -26,7 +26,7 @@ short_url_services <- c(
 #' dminit("1234567890abcdef1234567890abcdef")
 dminit <- function(api.key) {
   if (!is.null(api.key)) {
-    .RdmEnv$curlopts$httpheader[["X-DataMarket-API-Key"]] <- api.key
+    .rdatamarketEnv$curlopts$httpheader[["X-DataMarket-API-Key"]] <- api.key
   }
 }
 
@@ -210,5 +210,5 @@ dmlist <- function(ds, .params=list(), ...) {
 }
 
 dmCurlHandle <- function() {
-  getCurlHandle(.opts=.RdmEnv$curlopts)
+  getCurlHandle(.opts=.rdatamarketEnv$curlopts)
 }
