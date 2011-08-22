@@ -212,7 +212,7 @@ dmlist <- function(ds, .params=list(), ...) {
   curl <- dmCurlHandle()
   ctx <- interpret_ds(ds, .curl=curl)
   if (!(identical(c(...), c()))) {
-    infos <- dminfo(ds)
+    infos <- dodminfo(ds, .curl=curl)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
   get.datamarket.csv(ctx, path_list, curl, .params)
