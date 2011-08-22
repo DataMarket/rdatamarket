@@ -71,6 +71,10 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
   infolist <- fromJSON(infojson)
   names(infolist) <- lapply(infolist, FUN=function(i) i$ds)
   for (name in names(infolist)) {
+    if (infolist[[name]]$status != "success") {
+      class(infolist[[name]]) <- c('list', 'dmerror')
+      next
+    }
     names(infolist[[name]]$dimensions) <- lapply(infolist[[name]]$dimensions,
       FUN=function(dim) dim$id
     )
