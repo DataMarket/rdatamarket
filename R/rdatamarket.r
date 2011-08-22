@@ -74,12 +74,16 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
     names(infolist[[name]]$dimensions) <- lapply(infolist[[name]]$dimensions,
       FUN=function(dim) dim$id
     )
+    for (dimname in names(infolist[[name]]$dimensions)) {
+      class(infolist[[name]]$dimensions[[dimname]]) <- c("list", "dmdimension");
+    }
     for (dimid in names(infolist[[name]]$dimensions)) {
       names(infolist[[name]]$dimensions[[dimid]]$values) <- lapply(
         infolist[[name]]$dimensions[[dimid]]$values,
         FUN=function(dimvalue) dimvalue[['id']]
       )
     }
+    class(infolist[[name]]) <- c('list', 'dmdataset')
   }
   return(infolist)
 }
@@ -212,6 +216,36 @@ dmlist <- function(ds, .params=list(), ...) {
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
   get.datamarket.csv(ctx, path_list, curl, .params)
+}
+
+format.dmdimension <- function(d) {
+  N <- length(d$values);
+  sprintf('"%s" (%d values):\n    %s%s\n',
+    d$title,
+    N,
+    paste(lapply(as.list(d$values)[1:min(5,N)],
+                 FUN=function(v) sprintf('"%s"', v$title)
+                 ),
+          collapse="\n    "),
+    ifelse(N > 5, "\n    [...]", "")
+    )
+}
+
+format.dmdataset <- function(ds) {
+  sprintf("Title: \"%s\"\nDimensions:\n  %s\n",
+    ds$title,
+    paste(lapply(ds$dimensions, FUN=format), collapse="  ")
+    )
+}
+
+print.dmdimension <- function(d) {
+  cat(format(d));
+  invisible();
+}
+
+print.dmdataset <- function(ds, quote=FALSE, ...) {
+  cat(format(ds));
+  invisible();
 }
 
 dmCurlHandle <- function() {
