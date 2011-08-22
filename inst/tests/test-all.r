@@ -1,7 +1,7 @@
 context("DataMarket dataset info")
 
 test_that("Dataset 17tm looks as expected", {
-  info <- dminfo('17tm')[[1]]
+  info <- dminfo('17tm')
   expect_equal(info$id, '17tm')
   expect_equal(info$ds, '17tm')
   expect_equal(info$title, 'Oil: Production tonnes')

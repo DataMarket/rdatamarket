@@ -54,6 +54,11 @@ interpret_ds <- function(ds, .curl=dmCurlHandle()) {
 dimfilter <- function(ds, infos, ...) {
   args <- list(...)
   newds <- c()
+  if ("dmdataset" %in% class(infos)) {
+    infosds <- infos$ds;
+    infos <- list(infos);
+    names(infos) <- list(infosds);
+  }
   for (dsid in strsplit(ds, '\\/')[[1]]) {
     dimspec <- c()
     if (dsid %in% names(infos)) {

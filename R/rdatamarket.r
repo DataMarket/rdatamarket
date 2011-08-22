@@ -45,6 +45,9 @@ dminit <- function(api.key) {
 #'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
 #' @param .params extra GET parameters to pass along in the API request.
 #' @return a structure of named lists representing the dataset metadata.
+#'         If the resolved DS string is a multiple-dataset DS string (that is,
+#'         contains / forward-slash characters), then the returned value is a
+#'         named list of such structures, with `strsplit(ds, '/')` as names.
 #' @export
 #' @examples
 #' dminfo("17tm")
@@ -89,6 +92,9 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
     }
     class(infolist[[name]]) <- c('list', 'dmdataset')
   }
+  if (length(infolist) == 1) {
+    infolist <- infolist[[1]];
+  }
   return(infolist)
 }
 
@@ -125,7 +131,11 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
 #' dmdims("http://datamarket.com/data/set/17tm/#ds=17tm")
 dmdims <- function(ds, .params=list()) {
   infolist <- dminfo(ds, .params=.params)
-  lapply(infolist, FUN=function(info) info$dimensions)
+  if ("dmdataset" %in% class(infolist)) {
+    return(infolist$dimensions)
+  } else {
+    return(lapply(infolist, FUN=function(info) info$dimensions))
+  }
 }
 
 #' Fetch timeseries from a DataMarket dataset.

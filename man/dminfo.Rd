@@ -15,7 +15,10 @@
 }
 \value{
   a structure of named lists representing the dataset
-  metadata.
+  metadata. If the resolved DS string is a multiple-dataset
+  DS string (that is, contains / forward-slash characters),
+  then the returned value is a named list of such
+  structures, with `strsplit(ds, '/')` as names.
 }
 \description{
   This function makes an \code{info} API call to fetch

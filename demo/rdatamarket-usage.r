@@ -1,4 +1,4 @@
-info <- dminfo("17tm")[[1]]
+info <- dminfo("17tm")
 dim1 <- info$dimensions[[1]]
 series <- dmseries(paste(
   info$id, "|",
