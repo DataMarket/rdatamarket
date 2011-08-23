@@ -57,6 +57,7 @@ dminit <- function(api.key) {
 #' dminfo("foo=bar&ds=17tm&baz=xyzzy")
 #' dminfo("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dminfo("http://datamarket.com/data/set/17tm/#ds=17tm")
+#' dminfo("http://datamarket.com/data/set/12r9/male-population-thousands")
 dminfo <- function(ds, .params=list()) {
   return(dodminfo(ds, .params))
 }

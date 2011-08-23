@@ -40,8 +40,10 @@ interpret_ds <- function(ds, .curl=dmCurlHandle()) {
       } else {
         stop("No redirect found for URL ", ds)
       }
+    } else if (grepl('(?:/[a-zA-Z]{2})?/data/set/(?:[0-9a-z]+)(?:/|$)', path)) {
+      qs <- list(ds=sub('.*/data/set/([0-9a-z]+).*', '\\1', path))
     } else {
-        stop("of URL ", ds)
+      stop("Can't make sense of URL ", ds)
     }
   } else if (grepl('&|^ds=', ds)) {
     qs <- parse_qs(ds)
