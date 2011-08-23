@@ -163,6 +163,58 @@ test_that("Long-form with multi-valued parameter dimension filtering works", {
   expect_identical(list_from_param, list_from_dsstring)
 })
 
+context("Formatting functions")
+
+test_that("Formatting of dmdataset object works", {
+  ds <- dminfo("17tm")
+  expect_equal(format(ds), 'Title: "Oil: Production tonnes"
+Provider: "BP"
+Dimensions:
+  "Country" (60 values):
+    "Algeria"
+    "Angola"
+    "Argentina"
+    "Australia"
+    "Azerbaijan"
+    [...]')
+})
+
+test_that("Formatting of dmdimension object works", {
+  ds <- dminfo("17tm")
+  expect_equal(format(ds$dimensions[[1]]), '"Country" (60 values):
+    "Algeria"
+    "Angola"
+    "Argentina"
+    "Australia"
+    "Azerbaijan"
+    [...]')
+})
+
+test_that("Formatting of hierarchical dmdimension object works", {
+  ds <- dminfo("1hy5")
+  expect_equal(format(ds$dimensions[[1]]), '"Country" (5 values):
+    "Total World"
+    -> "OECD"
+    -> "NonOECD"
+    -> "European Union"
+    -> "Former Soviet Union"')
+})
+
+test_that("Formatting of dmdimvalues works", {
+  ds <- dminfo("17tm")
+  expect_equal(format(ds$dimensions[[1]]$values[[1]]), '"Algeria"')
+  expect_equal(format(ds$dimensions[[1]]$values[2:4]), ' 17  "Angola"
+  d  "Argentina"
+  z  "Australia"')
+})
+
+test_that("Formatting of dmhierarchicaldimvalue object works", {
+  ds <- dminfo("1hy5")
+  expect_equal(format(ds$dimensions[[1]]$values[[1]]), '"Total World"')
+  expect_equal(format(ds$dimensions[[1]]$values[[2]]), '-> "OECD"')
+  expect_equal(format(ds$dimensions[[1]]$values[[3]]), '-> "NonOECD"')
+})
+
 context("Util functions")
 
 test_that("dimfilter forms DS strings from named args correctly", {

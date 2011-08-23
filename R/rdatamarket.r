@@ -268,6 +268,7 @@ dmlist <- function(ds, .params=list(), ...) {
   return (y)
 }
 
+#' @export
 format.dmhierarchicaldimvalue <- function(v) {
   sprintf('%s"%s"',
           paste(rep("-> ", attr(v, "depth")), collapse=""),
@@ -275,10 +276,12 @@ format.dmhierarchicaldimvalue <- function(v) {
   )
 }
 
+#' @export
 format.dmdimvalue <- function(v) {
   sprintf('"%s"', v[["title"]])
 }
 
+#' @export
 format.dmdimvalues <- function(dv) {
     paste(lapply(as.list(dv),
         FUN=function(v) sprintf('%3s  %s', v[["id"]], format(v))
@@ -286,6 +289,7 @@ format.dmdimvalues <- function(dv) {
       collapse="\n");
 }
 
+#' @export
 format.dmdimension <- function(d) {
   N <- length(d$values);
   sprintf('"%s" (%d values):\n    %s%s',
@@ -296,6 +300,7 @@ format.dmdimension <- function(d) {
     )
 }
 
+#' @export
 format.dmdataset <- function(ds) {
   sprintf("Title: \"%s\"\nProvider: \"%s\"%s\nDimensions:\n  %s",
     ds$title,
@@ -307,26 +312,31 @@ format.dmdataset <- function(ds) {
     )
 }
 
+#' @export
 print.dmhierarchicaldimvalue <- function(v) {
   cat(format(v), "\n");
   invisible();
 }
 
+#' @export
 print.dmdimvalue <- function(v) {
   cat(format(v), "\n");
   invisible();
 }
 
+#' @export
 print.dmdimvalues <- function(dv) {
   cat(format(dv), "\n");
   invisible();
 }
 
+#' @export
 print.dmdimension <- function(d) {
   cat(format(d), "\n");
   invisible();
 }
 
+#' @export
 print.dmdataset <- function(ds, quote=FALSE, ...) {
   cat(format(ds), "\n");
   invisible();
