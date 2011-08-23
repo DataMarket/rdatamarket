@@ -72,7 +72,7 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
     curl=.curl,
     .params=c(ctx$qs, callback="", .params=.params)
     )
-  infolist <- fromJSON(infojson)
+  infolist <- fromJSON(infojson, simplify=FALSE)
   names(infolist) <- lapply(infolist, FUN=function(i) i$ds)
   for (name in names(infolist)) {
     if (infolist[[name]]$status != "success") {
