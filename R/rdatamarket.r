@@ -99,7 +99,7 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
           class(infolist[[name]]$dimensions[[dimid]]$values[[dimvalueid]]) <-
             c("list", "dmhierarchicaldimvalue", "dmdimvalue")
           pid <- infolist[[name]]$dimensions[[dimid]]$values[[
-            dimvalueid]]$parent_id
+            dimvalueid]][["parent_id"]]
           thisdepth <- ifelse(is.null(pid), 0, depth[[pid]] + 1);
           depth[[dimvalueid]] <- thisdepth
           attr(infolist[[name]]$dimensions[[dimid]]$values[[dimvalueid]],
@@ -276,12 +276,12 @@ format.dmhierarchicaldimvalue <- function(v) {
 }
 
 format.dmdimvalue <- function(v) {
-  sprintf('"%s"', v$title)
+  sprintf('"%s"', v[["title"]])
 }
 
 format.dmdimvalues <- function(dv) {
     paste(lapply(as.list(dv),
-        FUN=function(v) sprintf('%3s  %s', v$id, format(v))
+        FUN=function(v) sprintf('%3s  %s', v[["id"]], format(v))
       ),
       collapse="\n");
 }

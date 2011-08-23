@@ -11,12 +11,12 @@ test_that("Dataset 17tm looks as expected", {
   expect_equal(dim1$title, 'Country')
   expect_equal(dim1$type, 'simple')
   expect_is(dim1$values, 'list')
-  expect_equal(dim1$values[[1]]$id, 'a')
-  expect_equal(dim1$values[[1]]$title, 'Algeria')
-  expect_equal(dim1$values[[2]]$id, '17')
-  expect_equal(dim1$values[[2]]$title, 'Angola')
-  expect_equal(dim1$values[[3]]$id, 'd')
-  expect_equal(dim1$values[[3]]$title, 'Argentina')
+  expect_equal(dim1$values[[1]][["id"]], 'a')
+  expect_equal(dim1$values[[1]][["title"]], 'Algeria')
+  expect_equal(dim1$values[[2]][["id"]], '17')
+  expect_equal(dim1$values[[2]][["title"]], 'Angola')
+  expect_equal(dim1$values[[3]][["id"]], 'd')
+  expect_equal(dim1$values[[3]][["title"]], 'Argentina')
 })
 
 test_that("Info is kept around if passed to interpret_ds", {
