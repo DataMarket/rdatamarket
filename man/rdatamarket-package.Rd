@@ -41,7 +41,10 @@
   Country='Algeria')}
 }
 \examples{
-oil <- dminfo('17tm')
-algeria <- dmlist(oil, Country='Algeria')
+oil <- dminfo("17tm")
+print(oil)
+series <- dmseries(oil, Country="Yemen")
+lis <- dmlist(oil, Country=c("Algeria", "Angola"))
+
 }
 

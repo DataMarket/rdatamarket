@@ -35,9 +35,7 @@
 #' @import zoo RCurl RJSONIO
 #' @docType package
 #' @name rdatamarket-package
-#' @examples
-#' oil <- dminfo('17tm')
-#' algeria <- dmlist(oil, Country='Algeria')
+#' @example demo/rdatamarket-usage.r
 NULL
 
 .rdatamarketEnv <- new.env()
