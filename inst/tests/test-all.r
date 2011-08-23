@@ -61,8 +61,8 @@ test_that("Timeseries from dataset 17tm works", {
   expect_equal(as.numeric(series[1]), c(26.481, 0.655, 13.7647586207))
   expect_equal(as.numeric(series[2]), c(33.872, 0.631, 14.6439655172))
   times <- index(series)
-  expect_identical(times[1], as.Date('1965-07-01'))
-  expect_identical(times[2], as.Date('1966-07-01'))
+  expect_identical(times[1], 1965L)
+  expect_identical(times[2], 1966L)
 })
 
 test_that("Timeseries with parameter dimension filtering works", {
@@ -71,8 +71,8 @@ test_that("Timeseries with parameter dimension filtering works", {
   expect_equal(as.numeric(series[1]), c(26.481))
   expect_equal(as.numeric(series[2]), c(33.872))
   times <- index(series)
-  expect_identical(times[1], as.Date('1965-07-01'))
-  expect_identical(times[2], as.Date('1966-07-01'))
+  expect_identical(times[1], 1965L)
+  expect_identical(times[2], 1966L)
 
   # or, in short:
   series_from_param <- dmseries('17tm', Country='Algeria')

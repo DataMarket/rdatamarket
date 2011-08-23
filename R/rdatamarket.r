@@ -209,7 +209,14 @@ dmseries <- function(ds, .params=list(), ...) {
     stop(paste("No time column found in timeseries response. Columns are:",
                names(csv)))
   }
-  zindex <- as.Date(csv[[timecolname]])
+  zindex <- switch(timecolname,
+    Year=as.integer(csv[[timecolname]]),
+    Year.and.quarter=as.yearqtr(csv[[timecolname]]),
+    Year.and.month=as.yearmon(csv[[timecolname]]),
+    Date=as.Date(csv[[timecolname]]),
+    csv[[timecolname]]
+    )
+
   csv[[timecolname]] <- NULL
   zoo(csv, order.by=zindex)
 }

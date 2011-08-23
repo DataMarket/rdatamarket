@@ -152,7 +152,7 @@ get.datamarket.csv <- function(ctx, path, curl, .params) {
   content <- getForm(
     paste(ctx$base, path, sep=""),
     curl=curl,
-    .params=c(ctx$qs, use_mid_dates=1, callback="", .params)
+    .params=c(ctx$qs, split_time=0, callback="", .params)
     )
   conn <- textConnection(content)
   csv <- read.csv(conn, header=TRUE)
