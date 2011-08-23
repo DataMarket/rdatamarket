@@ -262,83 +262,90 @@ dmlist <- function(ds, .params=list(), ...) {
   get.datamarket.csv(ctx, path_list, curl, .params)
 }
 
+#' @S3method [ dmdimvalues
 `[.dmdimvalues` <- function (x, i)  {
   y <- unclass(x)[i]
   class(y) <- class(x)
   return (y)
 }
 
-#' @export
-format.dmhierarchicaldimvalue <- function(v) {
+#' @S3method format dmhierarchicaldimvalue
+format.dmhierarchicaldimvalue <- function(x, ...) {
   sprintf('%s"%s"',
-          paste(rep("-> ", attr(v, "depth")), collapse=""),
-          v[["title"]]
+          paste(rep("-> ", attr(x, "depth")), collapse=""),
+          x[["title"]]
   )
 }
 
-#' @export
-format.dmdimvalue <- function(v) {
-  sprintf('"%s"', v[["title"]])
+#' @S3method format dmdimvalue
+format.dmdimvalue <- function(x, ...) {
+  sprintf('"%s"', x[["title"]])
 }
 
-#' @export
-format.dmdimvalues <- function(dv) {
-    paste(lapply(as.list(dv),
-        FUN=function(v) sprintf('%3s  %s', v[["id"]], format(v))
+#' @S3method format dmdimvalues
+format.dmdimvalues <- function(x, ...) {
+    paste(lapply(as.list(x),
+        FUN=function(x) sprintf('%3s  %s', x[["id"]], format(x))
       ),
       collapse="\n");
 }
 
-#' @export
-format.dmdimension <- function(d) {
-  N <- length(d$values);
+#' @S3method format dmdimension
+format.dmdimension <- function(x, ...) {
+  N <- length(x$values);
   sprintf('"%s" (%d values):\n    %s%s',
-    d$title,
+    x$title,
     N,
-    paste(lapply(as.list(d$values)[1:min(5,N)], FUN=format), collapse="\n    "),
+    paste(lapply(as.list(x$values)[1:min(5,N)], FUN=format), collapse="\n    "),
     ifelse(N > 5, "\n    [...]", "")
     )
 }
 
-#' @export
-format.dmdataset <- function(ds) {
+#' @S3method format dmdataset
+format.dmdataset <- function(x, ...) {
   sprintf("Title: \"%s\"\nProvider: \"%s\"%s\nDimensions:\n  %s",
-    ds$title,
-    ds$meta$provider_title,
-    ifelse(ds$meta$source_source != "",
-           sprintf(" (citing \"%s\")", ds$meta$source_source),
+    x$title,
+    x$meta$provider_title,
+    ifelse(x$meta$source_source != "",
+           sprintf(" (citing \"%s\")", x$meta$source_source),
            ""),
-    paste(lapply(ds$dimensions, FUN=format), collapse="\n  ")
+    paste(lapply(x$dimensions, FUN=format), collapse="\n  ")
     )
 }
 
-#' @export
-print.dmhierarchicaldimvalue <- function(v) {
-  cat(format(v), "\n");
+#' @S3method print dmhierarchicaldimvalue
+print.dmhierarchicaldimvalue <- function(x, ...) {
+  cat(format(x, ...), "\n");
   invisible();
 }
 
-#' @export
-print.dmdimvalue <- function(v) {
-  cat(format(v), "\n");
+#' @S3method print dmdimvalue
+print.dmdimvalue <- function(x, ...) {
+  cat(format(x, ...), "\n");
   invisible();
 }
 
-#' @export
-print.dmdimvalues <- function(dv) {
-  cat(format(dv), "\n");
+#' @S3method print dmdimvalues
+print.dmdimvalues <- function(x, ...) {
+  cat(format(x, ...), "\n");
   invisible();
 }
 
-#' @export
-print.dmdimension <- function(d) {
-  cat(format(d), "\n");
+#' @S3method print dmdimension
+print.dmdimension <- function(x, ...) {
+  cat(format(x), "\n");
   invisible();
 }
 
-#' @export
-print.dmdataset <- function(ds, quote=FALSE, ...) {
-  cat(format(ds), "\n");
+#' @S3method print dmdataset
+print.dmdataset <- function(x, quote=FALSE, ...) {
+  cat(format(x), "\n");
+  invisible();
+}
+
+#' @S3method print dmerror
+print.dmerror <- function(x, ...) {
+  cat(sprintf("%s: %s\n", x$status, x$message))
   invisible();
 }
 
