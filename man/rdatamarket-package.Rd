@@ -7,6 +7,23 @@
   timeseries (\code{zoo}) and long form (suitable for
   \code{reshape}), and metadata on datasets.
 }
+\section{Quick start}{
+  Just find the data you want on
+  \code{\url{http://datamarket.com/}} and then paste the
+  URL from your browser into \code{\link{dmlist}} or
+  \code{\link{dmseries}}:
+
+  \code{plot(dmseries("http://datamarket.com/data/set/zy0/#ds=zy0|8o7=2"))}
+
+  \code{plot(dmseries("http://data.is/nyFeP9"))}
+
+  \code{l <- dmlist("http://data.is/nyFeP9"))}
+
+  or into \code{\link{dminfo}} to get the dataset metadata:
+
+  \code{ds <- dminfo("http://data.is/nyFeP9"))}
+}
+
 \section{DS parameters}{
   In functions that take a parameter named \code{ds}, that
   parameter can be: \itemize{ \item a dataset ID
