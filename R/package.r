@@ -29,8 +29,8 @@
 #' @section Dimension filtering:
 #'
 #' The functions \code{\link{dmseries}} and \code{\link{dmlist}} can accept
-#' parameters named after the dimensions of the dataset, in order to filter the
-#' dataset on those dimensions: \code{dmlist('17tm', Country='Algeria')}
+#' parameters named for the dimensions of the dataset, in order to filter the
+#' data: \code{dmlist("17tm", Country="Algeria")}
 #'
 #' @import zoo RCurl RJSONIO
 #' @docType package

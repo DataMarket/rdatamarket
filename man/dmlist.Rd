@@ -22,12 +22,16 @@
   \code{dmlist("12rb", "Country or Area"="Afghanistan")}}
 }
 \value{
-  a zoo object representing the fetched timeseries.
+  a data frame representing the fetched data. The data
+  frame has one column for each of the dataset's
+  dimensions, containing a factor whose levels are values
+  of that dimension, and a `Value` column holding a
+  numerical value for each combination of dimension values.
 }
 \description{
   This performs a \code{list} API request at
   DataMarket.com, fetching the requested data and wrapping
-  it in a \code{zoo} object.
+  it in a \code{data.frame} object.
 }
 \examples{
 dmlist("17tm")

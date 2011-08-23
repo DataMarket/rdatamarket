@@ -30,8 +30,8 @@
   the dimension value
 }
 \description{
-  This is just shorthand for \code{lapply(dminfo(ds,
-  .params=.params), FUN=function(info) info$dimensions)}
+  Get a list of dataset dimension objects for the given
+  dataset.
 }
 \examples{
 dmdims("17tm")

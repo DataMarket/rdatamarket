@@ -121,9 +121,7 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
 
 #' Fetch dimensions of a DataMarket dataset.
 #'
-#' This is just shorthand for
-#' \code{lapply(dminfo(ds, .params=.params), FUN=function(info)
-#' info$dimensions)}
+#' Get a list of dataset dimension objects for the given dataset.
 #'
 #' @param ds a dataset ID, DS string, URL query-string, or whole URL. The DS
 #'           string to send is extracted from the URL as needed, and short URLs
@@ -218,7 +216,7 @@ dmseries <- function(ds, .params=list(), ...) {
 #' Fetch data in long form as a data.frame from a DataMarket dataset.
 #'
 #' This performs a \code{list} API request at DataMarket.com, fetching the
-#' requested data and wrapping it in a \code{zoo} object.
+#' requested data and wrapping it in a \code{data.frame} object.
 #'
 #' @param ds a dataset ID, DS string, URL query-string, or whole URL. The DS
 #'           string to send is extracted from the URL as needed, and short URLs
@@ -230,7 +228,10 @@ dmseries <- function(ds, .params=list(), ...) {
 #'            \code{dmlist("17tm", Country="Algeria")} filters on that
 #'            dimension. If the dimension name includes spaces, it needs to be
 #'            quoted: \code{dmlist("12rb", "Country or Area"="Afghanistan")}
-#' @return a zoo object representing the fetched timeseries.
+#' @return a data frame representing the fetched data. The data frame has one
+#'         column for each of the dataset's dimensions, containing a factor
+#'         whose levels are values of that dimension, and a `Value` column
+#'         holding a numerical value for each combination of dimension values.
 #' @export
 #' @examples
 #' dmlist("17tm")
