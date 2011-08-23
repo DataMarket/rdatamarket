@@ -89,6 +89,27 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
         infolist[[name]]$dimensions[[dimid]]$values,
         FUN=function(dimvalue) dimvalue[['id']]
       )
+      class(infolist[[name]]$dimensions[[dimid]]$values) <- c("list",
+                                                              "dmdimvalues");
+      hier <- infolist[[name]]$dimension[[dimid]]$type == "hierarchical"
+      if (hier) {
+        depth <- list()
+        for (dimvalueid in names(infolist[[name]]$dimensions[[dimid]]$values)) {
+          class(infolist[[name]]$dimensions[[dimid]]$values[[dimvalueid]]) <-
+            c("list", "dmhierarchicaldimvalue", "dmdimvalue")
+          pid <- infolist[[name]]$dimensions[[dimid]]$values[[
+            dimvalueid]]$parent_id
+          thisdepth <- ifelse(is.null(pid), 0, depth[[pid]] + 1);
+          depth[[dimvalueid]] <- thisdepth
+          attr(infolist[[name]]$dimensions[[dimid]]$values[[dimvalueid]],
+               'depth') <- thisdepth
+        }
+      } else {
+        for (dimvalueid in names(infolist[[name]]$dimensions[[dimid]]$values)) {
+          class(infolist[[name]]$dimensions[[dimid]]$values[[dimvalueid]]) <-
+            c("list", "dmdimvalue")
+        }
+      }
     }
     class(infolist[[name]]) <- c('list', 'dmdataset')
   }
@@ -232,33 +253,73 @@ dmlist <- function(ds, .params=list(), ...) {
   get.datamarket.csv(ctx, path_list, curl, .params)
 }
 
+`[.dmdimvalues` <- function (x, i)  {
+  y <- unclass(x)[i]
+  class(y) <- class(x)
+  return (y)
+}
+
+format.dmhierarchicaldimvalue <- function(v) {
+  sprintf('%s"%s"%s',
+          paste(rep("-> ", attr(v, "depth")), collapse=""),
+          v$title,
+          ifelse(is.null(v$parent_id),
+                 "",
+                 sprintf(" (parent $`%s`)", v$parent_id)
+          )
+  )
+}
+
+format.dmdimvalue <- function(v) {
+  sprintf('"%s"', v$title)
+}
+
+format.dmdimvalues <- function(dv) {
+    paste(lapply(as.list(dv),
+        FUN=function(v) sprintf('%3s  %s', v$id, format(v))
+      ),
+      collapse="\n");
+}
+
 format.dmdimension <- function(d) {
   N <- length(d$values);
-  sprintf('"%s" (%d values):\n    %s%s\n',
+  sprintf('"%s" (%d values):\n    %s%s',
     d$title,
     N,
-    paste(lapply(as.list(d$values)[1:min(5,N)],
-                 FUN=function(v) sprintf('"%s"', v$title)
-                 ),
-          collapse="\n    "),
+    paste(lapply(as.list(d$values)[1:min(5,N)], FUN=format), collapse="\n    "),
     ifelse(N > 5, "\n    [...]", "")
     )
 }
 
 format.dmdataset <- function(ds) {
-  sprintf("Title: \"%s\"\nDimensions:\n  %s\n",
+  sprintf("Title: \"%s\"\nDimensions:\n  %s",
     ds$title,
-    paste(lapply(ds$dimensions, FUN=format), collapse="  ")
+    paste(lapply(ds$dimensions, FUN=format), collapse="\n  ")
     )
 }
 
+print.dmhierarchicaldimvalue <- function(v) {
+  cat(format(v), "\n");
+  invisible();
+}
+
+print.dmdimvalue <- function(v) {
+  cat(format(v), "\n");
+  invisible();
+}
+
+print.dmdimvalues <- function(dv) {
+  cat(format(dv), "\n");
+  invisible();
+}
+
 print.dmdimension <- function(d) {
-  cat(format(d));
+  cat(format(d), "\n");
   invisible();
 }
 
 print.dmdataset <- function(ds, quote=FALSE, ...) {
-  cat(format(ds));
+  cat(format(ds), "\n");
   invisible();
 }
 
