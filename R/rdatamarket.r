@@ -269,13 +269,9 @@ dmlist <- function(ds, .params=list(), ...) {
 }
 
 format.dmhierarchicaldimvalue <- function(v) {
-  sprintf('%s"%s"%s',
+  sprintf('%s"%s"',
           paste(rep("-> ", attr(v, "depth")), collapse=""),
-          v$title,
-          ifelse(is.null(v$parent_id),
-                 "",
-                 sprintf(" (parent $`%s`)", v$parent_id)
-          )
+          v[["title"]]
   )
 }
 
