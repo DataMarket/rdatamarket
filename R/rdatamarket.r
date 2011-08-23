@@ -294,8 +294,12 @@ format.dmdimension <- function(d) {
 }
 
 format.dmdataset <- function(ds) {
-  sprintf("Title: \"%s\"\nDimensions:\n  %s",
+  sprintf("Title: \"%s\"\nProvider: \"%s\"%s\nDimensions:\n  %s",
     ds$title,
+    ds$meta$provider_title,
+    ifelse(ds$meta$source_source != "",
+           sprintf(" (citing \"%s\")", ds$meta$source_source),
+           ""),
     paste(lapply(ds$dimensions, FUN=format), collapse="\n  ")
     )
 }
