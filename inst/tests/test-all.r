@@ -88,6 +88,54 @@ test_that("Timeseries with multi-valued parameter dimension filtering works", {
   expect_identical(series_from_param, series_from_dsstring)
 })
 
+test_that("Timeseries with quarter granularity works", {
+  series <- dmseries("1k8d")
+  expect_is(series, "zoo")
+  expect_identical(names(series), c("Income.Payments..Quarterly.Data."))
+  expect_identical(as.numeric(series[1]), c(-0.331))
+  expect_identical(as.numeric(series[2]), c(-0.314))
+  times <- index(series)
+  expect_identical(class(times), "yearqtr")
+  expect_identical(times[1], as.yearqtr("1960 Q1"))
+  expect_identical(times[2], as.yearqtr("1960 Q2"))
+})
+
+test_that("Timeseries with month granularity works", {
+  series <- dmseries("1k62")
+  expect_is(series, "zoo")
+  expect_identical(names(series), "MZM.Own.Rate")
+  expect_identical(as.numeric(series[1]), 2.711)
+  expect_identical(as.numeric(series[2]), 2.705)
+  times <- index(series)
+  expect_identical(class(times), "yearmon")
+  expect_identical(times[1], as.yearmon("1974-01"))
+  expect_identical(times[2], as.yearmon("1974-02"))
+})
+
+test_that("Timeseries with week granularity works", {
+  series <- dmseries("1lpt")
+  expect_is(series, "zoo")
+  expect_identical(names(series), "U.S..Economic.Statistics..M2.Money.Stock")
+  expect_identical(as.numeric(series[1]), 1601.8)
+  expect_identical(as.numeric(series[2]), 1595.2)
+  times <- index(series)
+  expect_identical(class(times), "factor")
+  expect_equal(as.character(times[1]), "1980-W01")
+  expect_equal(as.character(times[2]), "1980-W45")
+})
+
+test_that("Timeseries with date granularity works", {
+  series <- dmseries("1k2e")
+  expect_is(series, "zoo")
+  expect_identical(names(series), "U.S....Euro.Foreign.Exchange.Rate")
+  expect_identical(as.numeric(series[1]), 1.1812)
+  expect_identical(as.numeric(series[2]), 1.1760)
+  times <- index(series)
+  expect_identical(class(times), "Date")
+  expect_identical(times[1], as.Date("1999-01-04"))
+  expect_identical(times[2], as.Date("1999-01-05"))
+})
+
 context("DataMarket long-form data ('list')")
 
 test_that("Long-form data from dataset 17tm works", {
