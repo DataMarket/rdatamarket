@@ -6,6 +6,6 @@ series <- dmseries(paste(
   collapse=""))
 plot(series, main=info$title, xlab=info$meta$granularity)
 
-series <- dmseries(info, Country=("Algeria", "Angola"))
+series <- dmseries(info, Country=c("Algeria", "Angola"))
 plot(series, main=info$title, xlab=info$meta$granularity)
 
