@@ -1,3 +1,4 @@
+export(dmCurlOptions)
 export(dmdims)
 export(dminfo)
 export(dminit)

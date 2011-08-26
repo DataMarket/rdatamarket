@@ -13,6 +13,10 @@ browser (or a short URL to it) into `dmlist` or `dmseries`:
     > plot(dmseries("http://data.is/nyFeP9"))
     > l <- dmlist("http://data.is/nyFeP9"))
 
+If you need to go through an HTTP proxy, set it up this way:
+
+    > dmCurlOptions(proxy="http://outproxy.mycompany.com")
+
 # Reading metadata
 
 Get a dataset object (find the ID in a datamarket URL, or just paste in

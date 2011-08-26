@@ -28,10 +28,7 @@ short_url_services <- c(
 #' dminit(NULL)
 dminit <- function(api.key) {
   if (!missing(api.key)) {
-    .rdatamarketEnv$curlopts$httpheader$`X-DataMarket-API-Key` <- api.key
-  }
-  if (length(.rdatamarketEnv$curlopts$httpheader) == 0) {
-    .rdatamarketEnv$curlopts$httpheader <- NULL # else RCurl acts up
+    .rdatamarketEnv$api.key <- api.key
   }
 }
 
@@ -349,6 +346,32 @@ print.dmerror <- function(x, ...) {
   invisible();
 }
 
+#' Set extra RCurl options for full HTTP control.
+#'
+#' Use this to control the options with which RCurl connections are created, see
+#' \href{http://www.omegahat.org/RCurl/installed/RCurl/html/curlOptions.html}{RCurl::curlOptions}.
+#' A common use is setting a proxy to work with your company's firewall setup,
+#' see example below.
+#'
+#' @param ... name-value pairs specifying curl options. See full list of options
+#'            with `names(getCurlOptionsConstants())`, their types with
+#'            `getCurlOptionTypes()`, and full documentation in
+#'            \href{http://curl.haxx.se/docs/manpage.html}{the curl manpage}.
+#' @param .opts a named list of options, or a previously created `CURLOptions`
+#'              object. These are merged with the options specified in `...`.
+#' @export
+#' @examples
+#' \dontrun{dmCurlOptions(proxy='http://outproxy.mycompany.com')}
+dmCurlOptions <- function(..., .opts=list()) {
+  .rdatamarketEnv$curlopts <- curlOptions(.opts=.opts, ...)
+}
+
 dmCurlHandle <- function() {
-  getCurlHandle(.opts=.rdatamarketEnv$curlopts)
+  getCurlHandle(
+    .opts=.rdatamarketEnv$curlopts,
+    httpheader=c(
+      .rdatamarketEnv$curlopts$httpheader,
+      'X-DataMarket-API-Key'=.rdatamarketEnv$api.key
+    )
+  )
 }

@@ -1,4 +1,11 @@
-rdatamarket 0.6
----------------
+rdatamarket 0.6.1 (2011-XX-XX)
+--------------------------------------------------------------------------------
+
+* Give full control of Curl options, including (importantly) HTTP proxying
+
+
+
+rdatamarket 0.6 (2011-08-23)
+--------------------------------------------------------------------------------
 
 First release.
