@@ -3,6 +3,8 @@ rdatamarket 0.6.1 (2011-XX-XX)
 
 * Give full control of Curl options, including (importantly) HTTP proxying
 
+* Fix bug: format/print of dminfo object was failing when source_source absent
+
 
 
 rdatamarket 0.6 (2011-08-23)

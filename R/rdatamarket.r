@@ -303,7 +303,7 @@ format.dmdataset <- function(x, ...) {
   sprintf("Title: \"%s\"\nProvider: \"%s\"%s\nDimensions:\n  %s",
     x$title,
     x$meta$provider_title,
-    ifelse(x$meta$source_source != "",
+    ifelse(!is.null(x$meta$source_source) && x$meta$source_source != "",
            sprintf(" (citing \"%s\")", x$meta$source_source),
            ""),
     paste(lapply(x$dimensions, FUN=format), collapse="\n  ")
