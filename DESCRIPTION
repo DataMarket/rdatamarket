@@ -11,7 +11,7 @@ Description: Fetches data from DataMarket.com, either as
     frames (dmlist). Metadata including dimension structure
     is fetched with dminfo, or just the dimensions with
     dmdims.
-Version: 0.6.1
+Version: 0.6.2
 URL: http://datamarket.com/api/lib/rdatamarket
 Depends:
     R (>= 2.10.0),
