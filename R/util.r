@@ -154,6 +154,9 @@ get.datamarket.csv <- function(ctx, path, curl, .params) {
     curl=curl,
     .params=c(ctx$qs, split_time=0, callback="", .params)
     )
+  if (is.raw(content)) {
+    content <- rawToChar(content)
+  }
   conn <- textConnection(content)
   csv <- read.csv(conn, header=TRUE)
   close(conn)

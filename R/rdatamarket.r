@@ -69,6 +69,9 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
     curl=.curl,
     .params=c(ctx$qs, callback="", .params=.params)
     )
+  if (is.raw(infojson)) {
+    infojson <- rawToChar(infojson)
+  }
   infolist <- fromJSON(infojson, simplify=FALSE)
   names(infolist) <- lapply(infolist, FUN=function(i) i$ds)
   for (name in names(infolist)) {
