@@ -369,11 +369,32 @@ dmCurlOptions <- function(..., .opts=list()) {
   .rdatamarketEnv$curlopts <- curlOptions(.opts=.opts, ...)
 }
 
+getUserAgent <- function() {
+  if (is.null(.rdatamarketEnv$user.agent)) {
+    rdmv <- tryCatch(sessionInfo('rdatamarket')$otherPkgs$rdatamarket$Version,
+      warning=function(cond) '(devtools)')
+    si <- sessionInfo("RCurl")
+    .rdatamarketEnv$user.agent <- paste(
+      "rdatamarket ",
+      rdmv,
+      "; ",
+      si$R.version$version.string,
+      "; RCurl ",
+      si$otherPkgs$RCurl$Version,
+      "; platform ",
+      si$R.version$platform,
+      sep=""
+      )
+  }
+  return(.rdatamarketEnv$user.agent)
+}
+
 dmCurlHandle <- function() {
   getCurlHandle(
     .opts=.rdatamarketEnv$curlopts,
     httpheader=c(
       .rdatamarketEnv$curlopts$httpheader,
+      'User-Agent'=getUserAgent(),
       'X-DataMarket-API-Key'=.rdatamarketEnv$api.key
     )
   )
