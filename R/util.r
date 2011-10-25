@@ -31,12 +31,12 @@ interpret_ds <- function(ds, .curl=dmCurlHandle()) {
     } else if ('ds' %in% names(qs)) {
     } else if (base %in% short_url_services) {
       h=basicTextGatherer()
-      getURL(ds, headerFunction=h$update)
+      getURL(ds, headerFunction=h$update, curl=.curl)
       conn <- textConnection(paste(h$value(NULL)[-1], collapse=""))
       headers=as.list(read.dcf(conn)[1,])
       close(conn)
       if ('Location' %in% names(headers)) {
-        return(interpret_ds(headers$Location))
+        return(interpret_ds(headers$Location, .curl=.curl))
       } else {
         stop("No redirect found for URL ", ds)
       }
