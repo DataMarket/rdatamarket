@@ -4,6 +4,14 @@ The `rdatamarket` package is an R client for the [DataMarket.com
 API](http://datamarket.com/api/v1/), fetching the contents and metadata
 of datasets on DataMarket.com into R.
 
+To install the package:
+
+    > install.packages("rdatamarket")
+
+(If you are on Linux and get error messages involving RCurl, you may need
+to install a package called `libcurl4-openssl-dev` or similar, to get RCurl
+working.)
+
 # Quick start
 
 Just find the data you want on datamarket.com, then copy the URL from your
