@@ -143,10 +143,14 @@ parse_qs <- function(qs) {
   }
   l <- lapply(as.list(strsplit(qs, '&', fixed=TRUE)[[1]]), FUN=function(pair) {
     keyval <- as.list(strsplit(pair, '=', fixed=TRUE)[[1]])
+    if (is.na(keyval[[1]]) || keyval[[1]] %in% c("display", "s", "e", "f")) {
+      return (NA)
+    }
     val <- ifelse(length(keyval) > 1, paste(keyval[-1], collapse='='), '')
     names(val) <- keyval[[1]]
     return(val)
   })
+  l <- Filter(function(x) !is.na(x), l)
   names(l) <- sapply(l, names)
   return(l)
 }

@@ -5,6 +5,8 @@ rdatamarket 0.6.4 (2012-02-06)
 
 * New-style URLs: handle #! prefix cleanly, expect ! instead of | in DS strings
 
+* Filter out view-setting (not API-targeted) parameters in app URLs
+
 
 
 rdatamarket 0.6.3 (2011-10-25)
