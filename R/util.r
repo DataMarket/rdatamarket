@@ -107,7 +107,7 @@ dimfilter <- function(ds, infos, ...) {
       ifelse(
         identical(dimspec, c()),
         dsid,
-        paste(dsid, '|', paste(dimspec, collapse=':'), sep='')
+        paste(dsid, '!', paste(dimspec, collapse=':'), sep='')
       ))
   }
   return(paste(newds, collapse='/'))

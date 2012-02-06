@@ -250,8 +250,8 @@ test_that("dimfilter forms DS strings from named args correctly", {
     )
   ))))
   result <- dimfilter('17tm', mockinfos, Country='Algeria')
-  expect_equal(result, '17tm|kqc=a')
+  expect_equal(result, '17tm!kqc=a')
   result <- dimfilter('17tm', mockinfos, Country=c('Angola', 'Argentina'))
-  expect_equal(result, '17tm|kqc=17.d')
+  expect_equal(result, '17tm!kqc=17.d')
 })
 

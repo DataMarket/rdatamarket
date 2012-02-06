@@ -7,6 +7,8 @@ rdatamarket 0.6.4 (2012-02-06)
 
 * Filter out view-setting (not API-targeted) parameters in app URLs
 
+* Issue new-style DS strings (! instead of |) in requests
+
 
 
 rdatamarket 0.6.3 (2011-10-25)
