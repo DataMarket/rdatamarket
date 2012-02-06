@@ -138,6 +138,9 @@ parse_qs <- function(qs) {
   if (class(qs) == 'list') {
     return(qs)
   }
+  if (!is.na(qs) && grepl('^!', qs)) {
+    qs <- substr(qs, 2, 100000)
+  }
   l <- lapply(as.list(strsplit(qs, '&', fixed=TRUE)[[1]]), FUN=function(pair) {
     keyval <- as.list(strsplit(pair, '=', fixed=TRUE)[[1]])
     val <- ifelse(length(keyval) > 1, paste(keyval[-1], collapse='='), '')

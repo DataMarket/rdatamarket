@@ -3,6 +3,10 @@ rdatamarket 0.6.4 (2012-02-06)
 
 * Send Referer header when full URL passed in to dminfo, dmlist or dmseries
 
+* New-style URLs: handle #! prefix cleanly, expect ! instead of | in DS strings
+
+
+
 rdatamarket 0.6.3 (2011-10-25)
 --------------------------------------------------------------------------------
 
