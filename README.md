@@ -12,6 +12,10 @@ To install the package:
 to install a package called `libcurl4-openssl-dev` or similar, to get RCurl
 working.)
 
+... and then load the package:
+
+    > library(rdatamarket)
+
 # Quick start
 
 Just find the data you want on datamarket.com, then copy the URL from your
