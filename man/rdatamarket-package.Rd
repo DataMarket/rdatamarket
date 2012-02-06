@@ -13,7 +13,7 @@
   your browser into \code{\link{dmlist}} or
   \code{\link{dmseries}}:
 
-  \code{plot(dmseries("http://datamarket.com/data/set/zy0/#ds=zy0|8o7=2"))}
+  \code{plot(dmseries("http://datamarket.com/data/set/zy0/#ds=zy0!8o7=2"))}
 
   \code{plot(dmseries("http://data.is/nyFeP9"))}
 
@@ -27,15 +27,15 @@
 \section{DS parameters}{
   In functions that take a parameter named \code{ds}, that
   parameter can be: \itemize{ \item a dataset ID
-  (\code{"17tm"}) \item a DS string (\code{"17tm|kqc=a"})
+  (\code{"17tm"}) \item a DS string (\code{"17tm!kqc=a"})
   consisting of a dataset ID along with some dimension
   filtering specifications; for more about DS strings, see
   Datamarket API documentation at
   \url{http://datamarket.com/api/v1/#about-ds} \item a
-  query string (\code{"foo=bar&ds=17tm|kqc=a&baz=xyzzy"})
+  query string (\code{"foo=bar&ds=17tm!kqc=a&baz=xyzzy"})
   containing such a string in a \code{ds} parameter \item a
   URL
-  (\code{"http://datamarket.com/data/set/17tm/#ds=17tm|kqc=a"})
+  (\code{"http://datamarket.com/data/set/17tm/#ds=17tm!kqc=a"})
   containing such a query string after \code{?} or \code{#}
   \item such a URL represented by a redirect
   (\code{"http://data.is/r6JEsC"}) in a short-URL service

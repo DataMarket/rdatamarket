@@ -35,9 +35,9 @@
 }
 \examples{
 dmlist("17tm")
-dmlist("17tm|kqc=a")
+dmlist("17tm!kqc=a")
 dmlist("ds=17tm")
-dmlist("ds=17tm|kqc=a")
+dmlist("ds=17tm!kqc=a")
 dmlist("foo=bar&ds=17tm&baz=xyzzy")
 dmlist("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 dmlist("http://datamarket.com/data/set/17tm/#ds=17tm")

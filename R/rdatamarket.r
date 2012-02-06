@@ -48,9 +48,9 @@ dminit <- function(api.key) {
 #' @export
 #' @examples
 #' dminfo("17tm")
-#' dminfo("17tm|kqc=a")
+#' dminfo("17tm!kqc=a")
 #' dminfo("ds=17tm")
-#' dminfo("ds=17tm|kqc=a")
+#' dminfo("ds=17tm!kqc=a")
 #' dminfo("foo=bar&ds=17tm&baz=xyzzy")
 #' dminfo("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dminfo("http://datamarket.com/data/set/17tm/#ds=17tm")
@@ -134,7 +134,7 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
 #'           string to send is extracted from the URL as needed, and short URLs
 #'           at data.is, bit.ly, is.gd, t.co and url.is are expanded.
 #'           If the DS string contains dimension filter specifications (the
-#'           stuff after the | character, so it's not just a dataset ID), these
+#'           stuff after the ! character, so it's not just a dataset ID), these
 #'           are preserved in the request to the API, but for normal DataMarket
 #'           datasets they do not affect the response.
 #' @param .params extra GET parameters to pass along in the API request.
@@ -149,9 +149,9 @@ dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
 #' @export
 #' @examples
 #' dmdims("17tm")
-#' dmdims("17tm|kqc=a")
+#' dmdims("17tm!kqc=a")
 #' dmdims("ds=17tm")
-#' dmdims("ds=17tm|kqc=a")
+#' dmdims("ds=17tm!kqc=a")
 #' dmdims("foo=bar&ds=17tm&baz=xyzzy")
 #' dmdims("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmdims("http://datamarket.com/data/set/17tm/#ds=17tm")
@@ -183,9 +183,9 @@ dmdims <- function(ds, .params=list()) {
 #' @export
 #' @examples
 #' dmseries("17tm")
-#' dmseries("17tm|kqc=a")
+#' dmseries("17tm!kqc=a")
 #' dmseries("ds=17tm")
-#' dmseries("ds=17tm|kqc=a")
+#' dmseries("ds=17tm!kqc=a")
 #' dmseries("foo=bar&ds=17tm&baz=xyzzy")
 #' dmseries("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmseries("http://datamarket.com/data/set/17tm/#ds=17tm")
@@ -250,9 +250,9 @@ dmseries <- function(ds, .params=list(), ...) {
 #' @export
 #' @examples
 #' dmlist("17tm")
-#' dmlist("17tm|kqc=a")
+#' dmlist("17tm!kqc=a")
 #' dmlist("ds=17tm")
-#' dmlist("ds=17tm|kqc=a")
+#' dmlist("ds=17tm!kqc=a")
 #' dmlist("foo=bar&ds=17tm&baz=xyzzy")
 #' dmlist("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 #' dmlist("http://datamarket.com/data/set/17tm/#ds=17tm")

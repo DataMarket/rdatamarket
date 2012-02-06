@@ -17,7 +17,7 @@ working.)
 Just find the data you want on datamarket.com, then copy the URL from your
 browser (or a short URL to it) into `dmlist` or `dmseries`:
 
-    > plot(dmseries("http://datamarket.com/data/set/17tm/#ds=17tm|kqc=17.v.i"))
+    > plot(dmseries("http://datamarket.com/data/set/17tm/#ds=17tm!kqc=17.v.i"))
     > plot(dmseries("http://data.is/nyFeP9"))
     > l <- dmlist("http://data.is/nyFeP9"))
 
@@ -31,7 +31,7 @@ Get a dataset object (find the ID in a datamarket URL, or just paste in
 the whole URL if you like):
 
     > oil <- dminfo("17tm")
-    > oil <- dminfo("http://datamarket.com/data/set/17tm/#ds=17tm|kqc=17.v.i"))
+    > oil <- dminfo("http://datamarket.com/data/set/17tm/#ds=17tm!kqc=17.v.i"))
     > print(oil)
     Title: "Oil: Production tonnes"
     Provider: "BP"

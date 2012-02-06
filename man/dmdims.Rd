@@ -9,7 +9,7 @@
   whole URL. The DS string to send is extracted from the
   URL as needed, and short URLs at data.is, bit.ly, is.gd,
   t.co and url.is are expanded. If the DS string contains
-  dimension filter specifications (the stuff after the |
+  dimension filter specifications (the stuff after the !
   character, so it's not just a dataset ID), these are
   preserved in the request to the API, but for normal
   DataMarket datasets they do not affect the response.}
@@ -35,9 +35,9 @@
 }
 \examples{
 dmdims("17tm")
-dmdims("17tm|kqc=a")
+dmdims("17tm!kqc=a")
 dmdims("ds=17tm")
-dmdims("ds=17tm|kqc=a")
+dmdims("ds=17tm!kqc=a")
 dmdims("foo=bar&ds=17tm&baz=xyzzy")
 dmdims("http://datamarket.com/api/v1/series.json?foo=bar&ds=17tm&baz=xyzzy")
 dmdims("http://datamarket.com/data/set/17tm/#ds=17tm")
