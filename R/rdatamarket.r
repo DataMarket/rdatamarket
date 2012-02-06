@@ -60,13 +60,19 @@ dminfo <- function(ds, .params=list()) {
 }
 
 dodminfo <- function(ds, .params=list(), .curl=dmCurlHandle()) {
+  origds <- ifelse(!is.na(ds) && grep("^https?:", ds), ds, NA)
   ctx <- interpret_ds(ds, .curl=.curl)
   if ("infos" %in% names(ctx)) {
     return(ctx$infos)
   }
+  curlopts = list()
+  if (!is.na(origds)) {
+    curlopts$Referer <- origds
+  }
   infojson <- getForm(
     paste(ctx$base, path_info, sep=""),
     curl=.curl,
+    .opts=curlopts,
     .params=c(ctx$qs, callback="", .params=.params)
     )
   if (is.raw(infojson)) {
@@ -186,13 +192,14 @@ dmdims <- function(ds, .params=list()) {
 #' dmseries("17tm", Country="Algeria")
 #' dmseries("17tm", Country=c("Algeria", "Angola"))
 dmseries <- function(ds, .params=list(), ...) {
+  origds <- ifelse(!is.na(ds) && grep("^https?:", ds), ds, NA)
   curl <- dmCurlHandle()
   ctx <- interpret_ds(ds, .curl=curl)
   if (!(identical(c(...), c()))) {
     infos <- dodminfo(ds, .curl=curl)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
-  csv <- get.datamarket.csv(ctx, path_series, curl, .params)
+  csv <- get.datamarket.csv(ctx, path_series, curl, .params, origds)
   for (name in names(csv)) {
     if (all(is.na(csv[[name]]))) {
       csv[[name]] <- NULL
@@ -253,13 +260,14 @@ dmseries <- function(ds, .params=list(), ...) {
 #' dmlist("17tm", Country=c("Algeria", "Angola"))
 #' dmlist("12rb", "Country or Area"="Afghanistan")
 dmlist <- function(ds, .params=list(), ...) {
+  origds <- ifelse(!is.na(ds) && grep("^https?:", ds), ds, NA)
   curl <- dmCurlHandle()
   ctx <- interpret_ds(ds, .curl=curl)
   if (!(identical(c(...), c()))) {
     infos <- dodminfo(ds, .curl=curl)
     ctx$qs$ds <- dimfilter(ctx$qs$ds, infos, ...)
   }
-  get.datamarket.csv(ctx, path_list, curl, .params)
+  get.datamarket.csv(ctx, path_list, curl, .params, origds)
 }
 
 #' @S3method [ dmdimvalues

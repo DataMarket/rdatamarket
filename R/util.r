@@ -148,10 +148,15 @@ parse_qs <- function(qs) {
   return(l)
 }
 
-get.datamarket.csv <- function(ctx, path, curl, .params) {
+get.datamarket.csv <- function(ctx, path, curl, .params, origds=NA) {
+  curlopts = list()
+  if (!is.na(origds)) {
+    curlopts$Referer <- origds
+  }
   content <- getForm(
     paste(ctx$base, path, sep=""),
     curl=curl,
+    .opts=curlopts,
     .params=c(ctx$qs, split_time=0, callback="", .params)
     )
   if (is.raw(content)) {
