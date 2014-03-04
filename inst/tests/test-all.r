@@ -150,7 +150,7 @@ test_that("Timeseries with date granularity works", {
 context("DataMarket long-form data ('list')")
 
 test_that("Long-form data from dataset 17tm works", {
-  lis <- dmlist('17tm!kqc=a.17.d')
+  lis <- dmlist('ds=17tm!kqc=a.17.d&e=bu4')
   expect_is(lis, 'data.frame')
   expect_identical(names(lis), c('Country', 'Year', 'Value'))
   expect_identical(as.character(lis$Country), c(
@@ -163,7 +163,7 @@ test_that("Long-form data from dataset 17tm works", {
 })
 
 test_that("Long-form data from dataset 17tm with old DS format works", {
-  lis <- dmlist('17tm|kqc=a.17.d')
+  lis <- dmlist('ds=17tm|kqc=a.17.d&e=bu4')
   expect_is(lis, 'data.frame')
   expect_identical(names(lis), c('Country', 'Year', 'Value'))
   expect_identical(as.character(lis$Country), c(
