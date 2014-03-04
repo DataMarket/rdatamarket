@@ -154,11 +154,11 @@ test_that("Long-form data from dataset 17tm works", {
   expect_is(lis, 'data.frame')
   expect_identical(names(lis), c('Country', 'Year', 'Value'))
   expect_identical(as.character(lis$Country), c(
-    replicate(46, 'Algeria'),
-    replicate(46, 'Angola'),
-    replicate(46, 'Argentina')
+    replicate(48, 'Algeria'),
+    replicate(48, 'Angola'),
+    replicate(48, 'Argentina')
   ))
-  expect_identical(lis$Year, c(replicate(3, 1965:2010)))
+  expect_identical(lis$Year, c(replicate(3, 1965:2012)))
   expect_equal(lis$Value[1:4], c(26.481, 33.872, 39.076, 42.904))
 })
 
@@ -167,11 +167,11 @@ test_that("Long-form data from dataset 17tm with old DS format works", {
   expect_is(lis, 'data.frame')
   expect_identical(names(lis), c('Country', 'Year', 'Value'))
   expect_identical(as.character(lis$Country), c(
-    replicate(46, 'Algeria'),
-    replicate(46, 'Angola'),
-    replicate(46, 'Argentina')
+    replicate(48, 'Algeria'),
+    replicate(48, 'Angola'),
+    replicate(48, 'Argentina')
   ))
-  expect_identical(lis$Year, c(replicate(3, 1965:2010)))
+  expect_identical(lis$Year, c(replicate(3, 1965:2012)))
   expect_equal(lis$Value[1:4], c(26.481, 33.872, 39.076, 42.904))
 })
 
@@ -194,7 +194,7 @@ test_that("Formatting of dmdataset object works", {
   expect_equal(format(ds), 'Title: "Oil: Production tonnes"
 Provider: "BP"
 Dimensions:
-  "Country" (60 values):
+  "Country" (61 values):
     "Algeria"
     "Angola"
     "Argentina"
@@ -205,7 +205,7 @@ Dimensions:
 
 test_that("Formatting of dmdimension object works", {
   ds <- dminfo("17tm")
-  expect_equal(format(ds$dimensions[[1]]), '"Country" (60 values):
+  expect_equal(format(ds$dimensions[[1]]), '"Country" (61 values):
     "Algeria"
     "Angola"
     "Argentina"
