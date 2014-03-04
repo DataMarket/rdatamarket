@@ -2,7 +2,7 @@
 \alias{dmCurlOptions}
 \title{Set extra RCurl options for full HTTP control.}
 \usage{
-  dmCurlOptions(..., .opts = list())
+dmCurlOptions(..., .opts = list())
 }
 \arguments{
   \item{...}{name-value pairs specifying curl options. See
@@ -17,11 +17,11 @@
   options specified in `...`.}
 }
 \description{
-  Use this to control the options with which RCurl
-  connections are created, see
-  \href{http://www.omegahat.org/RCurl/installed/RCurl/html/curlOptions.html}{RCurl::curlOptions}.
-  A common use is setting a proxy to work with your
-  company's firewall setup, see example below.
+Use this to control the options with which RCurl
+connections are created, see
+\href{http://www.omegahat.org/RCurl/installed/RCurl/html/curlOptions.html}{RCurl::curlOptions}.
+A common use is setting a proxy to work with your company's
+firewall setup, see example below.
 }
 \examples{
 \dontrun{dmCurlOptions(proxy='http://outproxy.mycompany.com')}

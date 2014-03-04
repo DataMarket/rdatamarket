@@ -2,7 +2,7 @@
 \alias{dmseries}
 \title{Fetch timeseries from a DataMarket dataset.}
 \usage{
-  dmseries(ds, .params = list(), ...)
+dmseries(ds, .params = list(), ...)
 }
 \arguments{
   \item{ds}{a dataset ID, DS string, URL query-string, or
@@ -15,7 +15,7 @@
 
   \item{...}{named parameters whose names are dimension
   titles or IDs, and whose values are titles or IDs of
-  values of those dimensions. E.g. if dataset \code{17tm}
+  values of those dimensions.  E.g. if dataset \code{17tm}
   has a dimension named Country, then
   \code{dmseries("17tm", Country="Algeria")} filters on
   that dimension. If the dimension name includes spaces, it
@@ -23,12 +23,12 @@
   Area"="Afghanistan")}}
 }
 \value{
-  a zoo object representing the fetched timeseries.
+a zoo object representing the fetched timeseries.
 }
 \description{
-  This performs a \code{series} API request at
-  DataMarket.com, fetching the requested data and wrapping
-  it in a \code{zoo} object.
+This performs a \code{series} API request at
+DataMarket.com, fetching the requested data and wrapping it
+in a \code{zoo} object.
 }
 \examples{
 dmseries("17tm")

@@ -2,7 +2,7 @@
 \alias{dmlist}
 \title{Fetch data in long form as a data.frame from a DataMarket dataset.}
 \usage{
-  dmlist(ds, .params = list(), ...)
+dmlist(ds, .params = list(), ...)
 }
 \arguments{
   \item{ds}{a dataset ID, DS string, URL query-string, or
@@ -15,23 +15,23 @@
 
   \item{...}{named parameters whose names are dimension
   titles or IDs, and whose values are titles or IDs of
-  values of those dimensions. E.g. if dataset \code{17tm}
+  values of those dimensions.  E.g. if dataset \code{17tm}
   has a dimension named Country, then \code{dmlist("17tm",
   Country="Algeria")} filters on that dimension. If the
   dimension name includes spaces, it needs to be quoted:
   \code{dmlist("12rb", "Country or Area"="Afghanistan")}}
 }
 \value{
-  a data frame representing the fetched data. The data
-  frame has one column for each of the dataset's
-  dimensions, containing a factor whose levels are values
-  of that dimension, and a `Value` column holding a
-  numerical value for each combination of dimension values.
+a data frame representing the fetched data. The data frame
+has one column for each of the dataset's dimensions,
+containing a factor whose levels are values of that
+dimension, and a `Value` column holding a numerical value
+for each combination of dimension values.
 }
 \description{
-  This performs a \code{list} API request at
-  DataMarket.com, fetching the requested data and wrapping
-  it in a \code{data.frame} object.
+This performs a \code{list} API request at DataMarket.com,
+fetching the requested data and wrapping it in a
+\code{data.frame} object.
 }
 \examples{
 dmlist("17tm")

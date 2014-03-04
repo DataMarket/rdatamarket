@@ -3,9 +3,9 @@
 \alias{rdatamarket-package}
 \title{Data access API for DataMarket.com}
 \description{
-  Interacts with DataMarket.com, fetching data in
-  timeseries (\code{zoo}) and long form (suitable for
-  \code{reshape}), and metadata on datasets.
+Interacts with DataMarket.com, fetching data in timeseries
+(\code{zoo}) and long form (suitable for \code{reshape}),
+and metadata on datasets.
 }
 \section{Quick start}{
   Just find the data you want on
