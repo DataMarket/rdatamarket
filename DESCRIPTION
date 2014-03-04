@@ -3,7 +3,7 @@ Imports:
     RCurl,
     RJSONIO
 Maintainer: Gunnlaugur Thor Briem <gthb@datamarket.com>
-License: MIT
+License: MIT + file LICENSE
 Title: Data access API for DataMarket.com
 Author: Gunnlaugur Thor Briem <gthb@datamarket.com>
 Description: Fetches data from DataMarket.com, either as
