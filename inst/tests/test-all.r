@@ -150,7 +150,8 @@ test_that("Timeseries with date granularity works", {
 context("DataMarket long-form data ('list')")
 
 test_that("Long-form data from dataset 17tm works", {
-  lis <- dmlist('ds=17tm!kqc=a.17.d&e=bu4')
+  lis <- dmlist('ds=17tm!kqc=a.17.d&maxdate=2012')
+  lis <- lis[order(lis$Country, lis$Year),]
   expect_is(lis, 'data.frame')
   expect_identical(names(lis), c('Country', 'Year', 'Value'))
   expect_identical(as.character(lis$Country), c(
@@ -163,7 +164,8 @@ test_that("Long-form data from dataset 17tm works", {
 })
 
 test_that("Long-form data from dataset 17tm with old DS format works", {
-  lis <- dmlist('ds=17tm|kqc=a.17.d&e=bu4')
+  lis <- dmlist('ds=17tm|kqc=a.17.d&maxdate=2012')
+  lis <- lis[order(lis$Country, lis$Year),]
   expect_is(lis, 'data.frame')
   expect_identical(names(lis), c('Country', 'Year', 'Value'))
   expect_identical(as.character(lis$Country), c(
@@ -194,7 +196,7 @@ test_that("Formatting of dmdataset object works", {
   expect_equal(format(ds), 'Title: "Oil: Production tonnes"
 Provider: "BP"
 Dimensions:
-  "Country" (61 values):
+  "Country" (60 values):
     "Algeria"
     "Angola"
     "Argentina"
@@ -205,7 +207,7 @@ Dimensions:
 
 test_that("Formatting of dmdimension object works", {
   ds <- dminfo("17tm")
-  expect_equal(format(ds$dimensions[[1]]), '"Country" (61 values):
+  expect_equal(format(ds$dimensions[[1]]), '"Country" (60 values):
     "Algeria"
     "Angola"
     "Argentina"
